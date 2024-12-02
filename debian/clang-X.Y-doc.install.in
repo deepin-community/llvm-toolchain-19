@@ -1,0 +1,3 @@
+usr/lib/llvm-@LLVM_VERSION@/share/clang-doc/clang-doc-default-stylesheet.css
+usr/lib/llvm-@LLVM_VERSION@/share/clang-doc/index.js
+

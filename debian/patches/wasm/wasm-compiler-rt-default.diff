@@ -1,0 +1,35 @@
+Index: llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/clang/lib/Driver/ToolChains/WebAssembly.cpp
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974.orig/clang/lib/Driver/ToolChains/WebAssembly.cpp
++++ llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/clang/lib/Driver/ToolChains/WebAssembly.cpp
+@@ -457,6 +457,18 @@ ToolChain::RuntimeLibType WebAssembly::G
+   return ToolChain::RLT_CompilerRT;
+ }
+ 
++ToolChain::RuntimeLibType WebAssembly::GetRuntimeLibType(
++    const ArgList &Args) const {
++  if (Arg *A = Args.getLastArg(options::OPT_rtlib_EQ)) {
++    StringRef Value = A->getValue();
++    if (Value != "compiler-rt")
++      getDriver().Diag(clang::diag::err_drv_unsupported_rtlib_for_platform)
++          << Value << "WebAssembly";
++  }
++
++  return ToolChain::RLT_CompilerRT;
++}
++
+ ToolChain::CXXStdlibType
+ WebAssembly::GetCXXStdlibType(const ArgList &Args) const {
+   if (Arg *A = Args.getLastArg(options::OPT_stdlib_EQ)) {
+Index: llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/clang/lib/Driver/ToolChains/WebAssembly.h
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974.orig/clang/lib/Driver/ToolChains/WebAssembly.h
++++ llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/clang/lib/Driver/ToolChains/WebAssembly.h
+@@ -56,6 +56,7 @@ private:
+                         llvm::opt::ArgStringList &CC1Args,
+                         Action::OffloadKind DeviceOffloadKind) const override;
+   RuntimeLibType GetDefaultRuntimeLibType() const override;
++  RuntimeLibType GetRuntimeLibType(const llvm::opt::ArgList &Args) const override;
+   CXXStdlibType GetCXXStdlibType(const llvm::opt::ArgList &Args) const override;
+   void
+   AddClangSystemIncludeArgs(const llvm::opt::ArgList &DriverArgs,

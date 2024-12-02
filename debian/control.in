@@ -1,0 +1,967 @@
+Source: llvm-toolchain-@BRANCH_NAME@
+Section: devel
+Priority: optional
+Rules-Requires-Root: no
+Maintainer: LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>
+Uploaders: Sylvestre Ledru <sylvestre@debian.org>, Gianfranco Costamagna <locutusofborg@debian.org>
+Build-Depends: debhelper (>= 10.0), cmake, ninja-build,
+    chrpath, texinfo, sharutils,
+    libelf-dev,
+    libffi-dev,
+    lsb-release, patchutils, diffstat, xz-utils, python3-dev,
+    libedit-dev, libncurses-dev, swig, python3-sphinx (>= 1.3.6),
+    binutils-dev,
+    libxml2-dev,
+    libjsoncpp-dev, pkg-config,
+    libipt-dev [amd64 i386],
+    lcov, procps, help2man,
+    zlib1g-dev, libzstd-dev,
+    g++-multilib [@MULTILIB_ARCHS@]@BEGIN_OPTIONAL_HELLO@ | hello [@MULTILIB_ARCHS@]@END_OPTIONAL_HELLO@,
+    libjs-mathjax, python3-myst-parser | python3-recommonmark, python3-pexpect,
+    doxygen,@USAGE_BUILD_DEP@
+    ocaml-base [@OCAML_ARCHS@] | ocaml-nox [@OCAML_ARCHS@],
+    ocaml-findlib [@OCAML_ARCHS@],
+    libctypes-ocaml-dev [@OCAML_ARCHS@],
+    dh-exec, dh-ocaml [@OCAML_ARCHS@],
+    libpfm4-dev [linux-any], python3-setuptools, @Z3_DEV_DEP@
+# "| hello" is for older buster/bionic distros without spirv support
+# We need to keep the constraints coherent between the two alternatives, otherwise
+# hello would get installed unexpectedly and prevent e.g. wasi-libc from getting pulled
+    llvm-spirv-19 [amd64 arm64 armhf i386 ppc64 ppc64el riscv64 s390x] <!stage1>@BEGIN_OPTIONAL_HELLO@ | hello [amd64 arm64 armhf i386 ppc64 ppc64el riscv64 s390x] <!stage1>@END_OPTIONAL_HELLO@,
+    spirv-tools [linux-any] <!stage1>@BEGIN_OPTIONAL_HELLO@ | hello [linux-any] <!stage1>@END_OPTIONAL_HELLO@,
+    wasi-libc@BEGIN_OPTIONAL_HELLO@ | hello@END_OPTIONAL_HELLO@,
+    libcurl4-openssl-dev <!stage1> | libcurl-dev <!stage1>,
+    libgrpc++-dev [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
+    protobuf-compiler-grpc [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
+    libprotobuf-dev [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
+    protobuf-compiler [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
+Build-Conflicts: oprofile
+Standards-Version: 4.7.0
+Homepage: https://www.llvm.org/
+Vcs-Git: https://salsa.debian.org/pkg-llvm-team/llvm-toolchain.git -b @BRANCH_NAME@
+Vcs-Browser: https://salsa.debian.org/pkg-llvm-team/llvm-toolchain/tree/@BRANCH_NAME@
+
+# ------------- clang -------------
+
+Package: clang-@LLVM_VERSION@
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dep:devlibs},
+ ${dep:devlibs-objc},
+ libllvm@LLVM_VERSION@ (= ${binary:Version}),
+ libclang-common-@LLVM_VERSION@-dev (= ${binary:Version}),
+ llvm-@LLVM_VERSION@-linker-tools (= ${binary:Version}),
+ libclang1-@LLVM_VERSION@ (= ${binary:Version}), libc6-dev, binutils
+Provides: c-compiler, objc-compiler, c++-compiler, objc++-compiler
+Recommends: llvm-@LLVM_VERSION@-dev, python3
+# libomp-@LLVM_VERSION@-dev
+Suggests: clang-@LLVM_VERSION@-doc, wasi-libc
+Description: C, C++ and Objective-C compiler
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+
+Package: clang-tools-@LLVM_VERSION@
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, clang-@LLVM_VERSION@ (= ${binary:Version}),
+ python3
+Description: clang-based tools for C/C++ developments
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains some clang-based tools like scan-build, clang-cl, etc.
+
+Package: clang-format-@LLVM_VERSION@
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3,
+ libllvm@LLVM_VERSION@ (= ${binary:Version})
+Description: Tool to format C/C++/Obj-C code
+ Clang-format is both a library and a stand-alone tool with the goal of
+ automatically reformatting C++ sources files according to configurable
+ style guides. To do so, clang-format uses Clang's Lexer to transform an
+ input file into a token stream and then changes all the whitespace around
+ those tokens. The goal is for clang-format to both serve both as a user
+ tool (ideally with powerful IDE integrations) and part of other
+ refactoring tools, e.g. to do a reformatting of all the lines changed
+ during a renaming.
+ .
+ This package also provides vim and emacs plugins.
+
+Package: clang-tidy-@LLVM_VERSION@
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3,
+ libllvm@LLVM_VERSION@ (= ${binary:Version}),
+ libclang-common-@LLVM_VERSION@-dev (= ${binary:Version}),
+ clang-tools-@LLVM_VERSION@, python3-yaml
+Description: clang-based C++ linter tool
+ Provide an extensible framework for diagnosing and fixing typical programming
+ errors, like style violations, interface misuse, or bugs that can be deduced
+ via static analysis. clang-tidy is modular and provides a convenient interface
+ for writing new checks.
+
+Package: clangd-@LLVM_VERSION@
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ libllvm@LLVM_VERSION@ (= ${binary:Version}),
+ libclang-common-@LLVM_VERSION@-dev (= ${binary:Version}),
+Description: Language server that provides IDE-like features to editors
+ clangd understands your C++ code and adds smart features to your editor:
+  - code completion
+  - compile errors
+  - go-to-definition
+  - and more.
+ .
+ clangd is a language server that implements the Language Server Protocol;
+ it can work with many editors through a plugin.
+
+Package: clang-@LLVM_VERSION@-doc
+Architecture: all
+Multi-Arch: foreign
+Section: doc
+Depends: ${shlibs:Depends}, ${misc:Depends}, libjs-mathjax
+Description: C, C++ and Objective-C compiler - Documentation
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains the documentation.
+
+Package: libclang1-@LLVM_VERSION@
+Provides: ${t64:Provides}
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Description: C interface to the Clang library
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains the Clang library.
+ .
+ The C Interface to Clang provides a relatively small API that exposes
+ facilities for parsing source code into an abstract syntax tree (AST),
+ loading already-parsed ASTs, traversing the AST, associating physical source
+ locations with elements within the AST, and other facilities that support
+ Clang-based development tools.
+
+Package: libclang-@LLVM_VERSION@-dev
+Architecture: any
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dep:devlibs},
+ ${dep:devlibs-objc}, libclang1-@LLVM_VERSION@ (= ${binary:Version}),
+ libclang-common-@LLVM_VERSION@-dev (= ${binary:Version})
+Description: Clang library - Development package
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains the Clang headers to develop extensions over
+ libclang1-@LLVM_VERSION@.
+
+Package: libclang-common-@LLVM_VERSION@-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends},
+Recommends: libclang-rt-@LLVM_VERSION@-dev
+Description: Clang library - Common development package
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains the Clang generic headers.
+
+# ------------- compiler-rt -------------
+
+Package: libclang-rt-@LLVM_VERSION@-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Compiler-rt - development package
+ This package provides various libraries:
+ .
+   * builtins - Simple libraries that provide implementation of the
+     low-level target-specific hooks required by code generation
+     and other runtime components.
+   * sanitizer runtimes - AddressSanitizer, ThreadSanitizer,
+     UndefinedBehaviorSanitizer, MemorySanitizer, LeakSanitizer
+     DataFlowSanitizer, etc
+   * profile - Library which is used to collect coverage information.
+
+Package: libclang-rt-@LLVM_VERSION@-dev-wasm32
+Architecture: all
+Multi-Arch: foreign
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Compiler-rt - wasm32 builtins
+ Provides the compiler-rt builtins for WebAssembly 32 bits
+
+Package: libclang-rt-@LLVM_VERSION@-dev-wasm64
+Architecture: all
+Multi-Arch: foreign
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Compiler-rt - wasm64 builtins
+ Provides the compiler-rt builtins for WebAssembly 64 bits
+
+# ------------- polly -------------
+
+Package: libpolly-@LLVM_VERSION@-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: High-level loop and data-locality optimizer
+ Uses an abstract mathematical representation based on integer polyhedra
+ to analyze and optimize the memory access pattern of a program
+
+# ------------- clang libraries -------------
+
+Package: libclang-cpp@LLVM_VERSION@
+Provides: ${t64:Provides}
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libllvm@LLVM_VERSION@ (= ${binary:Version})
+Pre-Depends: ${misc:Pre-Depends}
+Description: C++ interface to the Clang library
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains the Clang C++ library.
+ .
+ The C++ Interface to Clang provides an API that exposes
+ facilities for parsing source code into an abstract syntax tree (AST),
+ loading already-parsed ASTs, traversing the AST, associating physical source
+ locations with elements within the AST, and other facilities that support
+ Clang-based development tools.
+
+Package: libclang-cpp@LLVM_VERSION@-dev
+Architecture: any
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dep:devlibs},
+ libclang-cpp@LLVM_VERSION@ (= ${binary:Version})
+# Move of libclang-cpp.so into libclang-cpp@LLVM_VERSION@.dev
+Description: C++ interface to the Clang library
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains the Clang C++ library.
+ .
+ The C++ Interface to Clang provides an API that exposes
+ facilities for parsing source code into an abstract syntax tree (AST),
+ loading already-parsed ASTs, traversing the AST, associating physical source
+ locations with elements within the AST, and other facilities that support
+ Clang-based development tools.
+ .
+ This package contains symlinks without a version number, which needed by
+ linker at build time.
+
+
+Package: libfuzzer-@LLVM_VERSION@-dev
+Architecture: linux-any
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}, clang-@LLVM_VERSION@ (= ${binary:Version})
+Description: Library for coverage-guided fuzz testing
+ LibFuzzer is a library for in-process, coverage-guided, evolutionary fuzzing
+ of other libraries.
+ .
+ LibFuzzer is similar in concept to American Fuzzy Lop (AFL), but it performs
+ all of its fuzzing inside a single process. This in-process fuzzing can be
+ more restrictive and fragile, but is potentially much faster as there is no
+ overhead for process start-up.
+ .
+ The fuzzer is linked with the library under test, and feeds fuzzed inputs to
+ the library via a specific fuzzing entrypoint (aka 'target function'); the
+ fuzzer then tracks which areas of the code are reached, and generates mutations
+ on the corpus of input data in order to maximize the code coverage. The code
+ coverage information for libFuzzer is provided by LLVM's SanitizerCoverage
+ instrumentation.
+
+
+Package: python3-clang-@LLVM_VERSION@
+Section: python
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3, libclang-@LLVM_VERSION@-dev
+Replaces: python-clang-x.y,
+Conflicts: python-clang-x.y
+Provides: python-clang-x.y
+Description: Clang Python Bindings
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This binding package provides access to the Clang compiler and libraries.
+
+Package: clang-@LLVM_VERSION@-examples
+Architecture: all
+Multi-Arch: foreign
+Section: doc
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Clang examples
+ Clang project is a C, C++, Objective C and Objective C++ front-end
+ based on the LLVM compiler. Its goal is to offer a replacement to the
+ GNU Compiler Collection (GCC).
+ .
+ Clang implements all of the ISO C++ 1998, 11, 14 and 17 standards and also
+ provides most of the support of C++20.
+ .
+ This package contains the Clang examples.
+
+# ------------- LLVM -------------
+
+Package: libllvm@LLVM_VERSION@
+Provides: ${t64:Provides}
+Architecture: any
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Multi-Arch: same
+Breaks: llvm-@LLVM_VERSION@-dev (<< 1:19.1.0~++rc3-1~exp2)
+Replaces: llvm-@LLVM_VERSION@-dev (<< 1:19.1.0~++rc3-1~exp2)
+Description: Modular compiler and toolchain technologies, runtime library
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ This package contains the LLVM runtime library.
+
+Package: llvm-@LLVM_VERSION@-linker-tools
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Modular compiler and toolchain technologies - Plugins
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ This package contains the LLVMgold and LLVMPolly linker plugins.
+
+Package: llvm-@LLVM_VERSION@
+Architecture: any
+Suggests: llvm-@LLVM_VERSION@-doc
+Depends: llvm-@LLVM_VERSION@-runtime (= ${binary:Version}),
+ llvm-@LLVM_VERSION@-linker-tools (= ${binary:Version}),
+ ${shlibs:Depends}, ${misc:Depends}
+Recommends: llvm-@LLVM_VERSION@-dev
+Description: Modular compiler and toolchain technologies
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ LLVM uses a single, language-independent virtual instruction set both
+ as an offline code representation (to communicate code between
+ compiler phases and to run-time systems) and as the compiler internal
+ representation (to analyze and transform programs). This persistent
+ code representation allows a common set of sophisticated compiler
+ techniques to be applied at compile-time, link-time, install-time,
+ run-time, or "idle-time" (between program runs).
+ .
+ The strengths of the LLVM infrastructure are its extremely
+ simple design (which makes it easy to understand and use),
+ source-language independence, powerful mid-level optimizer, automated
+ compiler debugging support, extensibility, and its stability and
+ reliability. LLVM is currently being used to host a wide variety of
+ academic research projects and commercial projects. LLVM includes C
+ and C++ front-ends, a front-end for a Forth-like language (Stacker),
+ a young scheme front-end, and Java support is in development. LLVM can
+ generate code for X96, SparcV10, PowerPC or many other architectures.
+
+Package: llvm-@LLVM_VERSION@-runtime
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: binfmt-support | systemd
+Description: Modular compiler and toolchain technologies, IR interpreter
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ LLVM uses a single, language-independent virtual instruction set both
+ as an offline code representation (to communicate code between
+ compiler phases and to run-time systems) and as the compiler internal
+ representation (to analyze and transform programs). This persistent
+ code representation allows a common set of sophisticated compiler
+ techniques to be applied at compile-time, link-time, install-time,
+ run-time, or "idle-time" (between program runs).
+ .
+ This package provides the minimal required to execute programs in LLVM
+ format.
+
+Package: llvm-@LLVM_VERSION@-dev
+Architecture: any
+Depends: ${shlibs:Depends}, libffi-dev, ${misc:Depends},
+ llvm-@LLVM_VERSION@ (= ${binary:Version}), libllvm@LLVM_VERSION@ (= ${binary:Version}), libncurses-dev,
+ llvm-@LLVM_VERSION@-tools (= ${binary:Version}), libclang-cpp@LLVM_VERSION@ (= ${binary:Version}),
+ libxml2-dev, @Z3_DEV_DEP@
+Breaks: libllvm@LLVM_VERSION@ (<< 1:19.1.0-4)
+Replaces: libllvm@LLVM_VERSION@ (<< 1:19.1.0-4)
+Description: Modular compiler and toolchain technologies, libraries and headers
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ LLVM uses a single, language-independent virtual instruction set both
+ as an offline code representation (to communicate code between
+ compiler phases and to run-time systems) and as the compiler internal
+ representation (to analyze and transform programs). This persistent
+ code representation allows a common set of sophisticated compiler
+ techniques to be applied at compile-time, link-time, install-time,
+ run-time, or "idle-time" (between program runs).
+ .
+ This package provides the libraries and headers to develop applications
+ using llvm.
+
+Package: llvm-@LLVM_VERSION@-tools
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3,
+ python3-pygments, python3-yaml,
+# Because of yaml-bench
+Description: Modular compiler and toolchain technologies, tools
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ LLVM uses a single, language-independent virtual instruction set both
+ as an offline code representation (to communicate code between
+ compiler phases and to run-time systems) and as the compiler internal
+ representation (to analyze and transform programs). This persistent
+ code representation allows a common set of sophisticated compiler
+ techniques to be applied at compile-time, link-time, install-time,
+ run-time, or "idle-time" (between program runs).
+ .
+ This package provides tools for testing.
+
+Package: libllvm-@LLVM_VERSION@-ocaml-dev
+Section: ocaml
+Architecture: @OCAML_ARCHS@
+Suggests: llvm-@LLVM_VERSION@-doc
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${ocaml:Depends}, llvm-@LLVM_VERSION@-dev (= ${binary:Version})
+Replaces: libllvm-x.y-ocaml-dev
+Conflicts: libllvm-x.y-ocaml-dev
+Provides: ${ocaml:Provides}, libllvm-x.y-ocaml-dev
+Description: Modular compiler and toolchain technologies, OCaml bindings
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ LLVM uses a single, language-independent virtual instruction set both
+ as an offline code representation (to communicate code between
+ compiler phases and to run-time systems) and as the compiler internal
+ representation (to analyze and transform programs). This persistent
+ code representation allows a common set of sophisticated compiler
+ techniques to be applied at compile-time, link-time, install-time,
+ run-time, or "idle-time" (between program runs).
+ .
+ This package provides the OCaml bindings to develop applications using llvm.
+
+Package: llvm-@LLVM_VERSION@-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}, libjs-jquery, libjs-underscore
+Description: Modular compiler and toolchain technologies, documentation
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ LLVM uses a single, language-independent virtual instruction set both
+ as an offline code representation (to communicate code between
+ compiler phases and to run-time systems) and as the compiler internal
+ representation (to analyze and transform programs). This persistent
+ code representation allows a common set of sophisticated compiler
+ techniques to be applied at compile-time, link-time, install-time,
+ run-time, or "idle-time" (between program runs).
+ .
+ This package contains all documentation (extensive).
+
+Package: llvm-@LLVM_VERSION@-examples
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}, llvm-@LLVM_VERSION@-dev (>= ${source:Version}), llvm-@LLVM_VERSION@-dev (<< ${source:Version}+c~)
+Description: Modular compiler and toolchain technologies, examples
+ LLVM is a collection of libraries and tools that make it easy to build
+ compilers, optimizers, just-in-time code generators, and many other
+ compiler-related programs.
+ .
+ LLVM uses a single, language-independent virtual instruction set both
+ as an offline code representation (to communicate code between
+ compiler phases and to run-time systems) and as the compiler internal
+ representation (to analyze and transform programs). This persistent
+ code representation allows a common set of sophisticated compiler
+ techniques to be applied at compile-time, link-time, install-time,
+ run-time, or "idle-time" (between program runs).
+ .
+ This package contains examples for using LLVM, both in developing
+ extensions to LLVM and in using it to compile code.
+
+
+# ------------- lld -------------
+
+Package: lld-@LLVM_VERSION@
+Architecture: amd64 arm64 armel armhf i386 mipsel mips64el ppc64el s390x sparc m68k ppc64 sparc64 x32 riscv64 loong64
+# ia64 hurd powerpc have been removed
+Depends: ${shlibs:Depends}, ${misc:Depends}, libllvm@LLVM_VERSION@ (= ${binary:Version})
+Pre-Depends: ${misc:Pre-Depends}
+Description: LLVM-based linker
+ LLD is a new, high-performance linker. It is built as a set of reusable
+ components which highly leverage existing libraries in the larger LLVM
+ Project.
+
+Package: liblld-@LLVM_VERSION@
+Architecture: amd64 arm64 armel armhf i386 mipsel mips64el ppc64el s390x sparc m68k ppc64 sparc64 x32 riscv64 loong64
+# ia64 hurd powerpc have been removed
+Depends: ${shlibs:Depends}, ${misc:Depends}, libllvm@LLVM_VERSION@ (= ${binary:Version})
+Pre-Depends: ${misc:Pre-Depends}
+Section: libs
+Description: LLVM-based linker, library
+ LLD is a new, high-performance linker. It is built as a set of reusable
+ components which highly leverage existing libraries in the larger LLVM
+ Project.
+ .
+ This package contains the LLD runtime library.
+
+Package: liblld-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: amd64 arm64 armel armhf i386 mipsel mips64el ppc64el s390x sparc m68k ppc64 sparc64 x32 riscv64 loong64
+# ia64 hurd powerpc have been removed
+Depends: ${shlibs:Depends}, ${misc:Depends}, lld-@LLVM_VERSION@ (= ${binary:Version}),
+ liblld-@LLVM_VERSION@ (= ${binary:Version}), libzstd-dev, zlib1g-dev
+Pre-Depends: ${misc:Pre-Depends}
+Description: LLVM-based linker, header files
+ LLD is a new, high-performance linker. It is built as a set of reusable
+ components which highly leverage existing libraries in the larger LLVM
+ Project.
+ .
+ This package provides the header files to build extension over lld.
+
+
+# ------------- lldb -------------
+
+Package: lldb-@LLVM_VERSION@
+Architecture: @LLDB_ARCHS@
+Depends: ${shlibs:Depends}, ${misc:Depends}, libllvm@LLVM_VERSION@ (= ${binary:Version}),
+ python3-lldb-@LLVM_VERSION@
+Pre-Depends: ${misc:Pre-Depends}
+Description: Next generation, high-performance debugger
+ LLDB is a next generation, high-performance debugger. It is built as a set of
+ reusable components which highly leverage existing libraries in the larger LLVM
+ Project, such as the Clang expression parser and LLVM disassembler.
+
+Package: liblldb-@LLVM_VERSION@
+Provides: ${t64:Provides}
+Architecture: @LLDB_ARCHS@
+Depends: ${shlibs:Depends}, ${misc:Depends}, libllvm@LLVM_VERSION@ (= ${binary:Version})
+Pre-Depends: ${misc:Pre-Depends}
+Section: libs
+Description: Next generation, high-performance debugger, library
+ LLDB is a next generation, high-performance debugger. It is built as a set of
+ reusable components which highly leverage existing libraries in the larger LLVM
+ Project, such as the Clang expression parser and LLVM disassembler.
+ .
+ This package contains the LLDB runtime library.
+
+Package: python3-lldb-@LLVM_VERSION@
+Section: python
+Architecture: @LLDB_ARCHS@
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}, liblldb-@LLVM_VERSION@ (= ${binary:Version})
+Conflicts: python3-lldb-x.y
+Replaces: python3-lldb-x.y
+Provides: python3-lldb-x.y
+Pre-Depends: ${misc:Pre-Depends}
+Description: Next generation, high-performance debugger, python3 lib
+ LLDB is a next generation, high-performance debugger. It is built as a set of
+ reusable components which highly leverage existing libraries in the larger LLVM
+ Project, such as the Clang expression parser and LLVM disassembler.
+ .
+ This binding package provides access to lldb.
+
+Package: liblldb-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: @LLDB_ARCHS@
+Depends: ${shlibs:Depends}, ${misc:Depends}, lldb-@LLVM_VERSION@ (= ${binary:Version})
+Pre-Depends: ${misc:Pre-Depends}
+Description: Next generation, high-performance debugger, header files
+ LLDB is a next generation, high-performance debugger. It is built as a set of
+ reusable components which highly leverage existing libraries in the larger LLVM
+ Project, such as the Clang expression parser and LLVM disassembler.
+ .
+ This package provides the header files to build extension over lldb.
+
+
+# ------------- openmp -------------
+# 44 because it was the first version in which openmp & libc++ have been
+# managed in llvm-defaults
+
+Package: libomp-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: @OMP_ARCHS@
+Depends: libomp5-@LLVM_VERSION@ (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Suggests: libomp-@LLVM_VERSION@-doc
+Breaks: libiomp-dev (<< 3.7-1)
+Provides: libomp-x.y-dev
+Conflicts: libomp-x.y-dev
+Replaces: libomp-x.y-dev
+Description: LLVM OpenMP runtime - dev package
+ The runtime is the part of the OpenMP implementation that your code is
+ linked against, and that manages the multiple threads in an OpenMP program
+ while it is executing.
+
+Package: libomp5-@LLVM_VERSION@
+Multi-Arch: same
+Architecture: @OMP_ARCHS@
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: ${t64:Provides}, libomp-x.y
+Conflicts: libomp-x.y
+Replaces: libomp-x.y
+Description: LLVM OpenMP runtime
+ The runtime is the part of the OpenMP implementation that your code is
+ linked against, and that manages the multiple threads in an OpenMP program
+ while it is executing.
+
+Package: libomp-@LLVM_VERSION@-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}, libjs-jquery
+Replaces: libiomp-x.y-doc
+Breaks: libiomp-x.y-doc
+Description: LLVM OpenMP runtime - Documentation
+ The runtime is the part of the OpenMP implementation that your code is
+ linked against, and that manages the multiple threads in an OpenMP program
+ while it is executing.
+ .
+ This package contains the documentation of this package.
+
+# ------------- libcxx -------------
+
+Package: libc++1-@LLVM_VERSION@
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: clang
+Provides: ${t64:Provides}, libc++-x.y
+Conflicts: libc++-x.y
+Replaces: libc++-x.y
+Description: LLVM C++ Standard library
+ libc++ is another implementation of the C++ standard library.
+ .
+ Features and Goals
+ .
+   * Correctness as defined by the C++ standards.
+   * Fast execution.
+   * Minimal memory use.
+   * Fast compile times.
+   * ABI compatibility with gcc's libstdc++ for some low-level features such
+     as exception objects, rtti and memory allocation.
+   * Extensive unit tests.
+
+Package: libc++-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libc++1-@LLVM_VERSION@ (= ${binary:Version}), ${misc:Depends},
+ libc++abi-@LLVM_VERSION@-dev (= ${binary:Version}),
+ libunwind-@LLVM_VERSION@-dev [amd64 arm64 armhf i386 loong64 ppc64el ppc64 riscv64]
+Provides: libc++-x.y-dev
+Conflicts: libc++-x.y-dev
+Replaces: libc++-x.y-dev
+Description: LLVM C++ Standard library (development files)
+ libc++ is another implementation of the C++ standard library
+ .
+ Features and Goals
+ .
+   * Correctness as defined by the C++ standards.
+   * Fast execution.
+   * Minimal memory use.
+   * Fast compile times.
+   * ABI compatibility with gcc's libstdc++ for some low-level features such
+     as exception objects, rtti and memory allocation.
+   * Extensive unit tests.
+
+Package: libc++-@LLVM_VERSION@-dev-wasm32
+Section: libdevel
+Architecture: all
+Multi-Arch: foreign
+Depends: wasi-libc, libc++abi-@LLVM_VERSION@-dev-wasm32, ${misc:Depends}
+Provides: libc++-x.y-dev-wasm32
+Conflicts: libc++-x.y-dev-wasm32
+Replaces: libc++-x.y-dev-wasm32
+Description: LLVM C++ Standard library (WASI)
+ libc++ is another implementation of the C++ standard library
+ .
+ Features and Goals
+ .
+   * Correctness as defined by the C++ standards.
+   * Fast execution.
+   * Minimal memory use.
+   * Fast compile times.
+   * ABI compatibility with gcc's libstdc++ for some low-level features such
+     as exception objects, rtti and memory allocation.
+   * Extensive unit tests.
+ .
+ This package provides a version for the 32-bit WebAssembly System Interface.
+
+# ------------- libcxxabi -------------
+
+Package: libc++abi1-@LLVM_VERSION@
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: ${t64:Provides}, libc++abi-x.y
+Conflicts: libc++abi-x.y
+Replaces: libc++abi-x.y
+Description: LLVM low level support for a standard C++ library
+ libc++abi is another implementation of low level support for a standard C++
+ library.
+ .
+ Features and Goals
+ .
+   * Correctness as defined by the C++ standards.
+   * Provide a portable sublayer to ease the porting of libc++
+
+Package: libc++abi-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libc++abi1-@LLVM_VERSION@ (= ${binary:Version}), ${misc:Depends}
+Breaks: libc++abi-dev (<= 44)
+Provides: libc++abi-x.y-dev
+Conflicts: libc++abi-x.y-dev
+Replaces: libc++abi-x.y-dev
+Description: LLVM low level support for a standard C++ library (development files)
+ libc++abi is another implementation of low level support for a standard C++
+ library.
+ .
+ Features and Goals
+ .
+   * Correctness as defined by the C++ standards.
+   * Provide a portable sublayer to ease the porting of libc++
+
+Package: libc++abi-@LLVM_VERSION@-dev-wasm32
+Section: libdevel
+Architecture: all
+Multi-Arch: foreign
+Depends: wasi-libc, ${misc:Depends}
+Provides: libc++abi-x.y-dev-wasm32
+Conflicts: libc++abi-x.y-dev-wasm32
+Replaces: libc++abi-x.y-dev-wasm32
+Description: LLVM low level support for a standard C++ library (WASI)
+ libc++abi is another implementation of low level support for a standard C++
+ library.
+ .
+ Features and Goals
+ .
+   * Correctness as defined by the C++ standards.
+   * Provide a portable sublayer to ease the porting of libc++
+ .
+ This package provides a version for the 32-bit WebAssembly System Interface.
+
+# ------------- libclc -------------
+
+Package: libclc-@LLVM_VERSION@
+Section: libs
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ libclc-@LLVM_VERSION@-dev (= ${binary:Version}),
+ libclang-common-@LLVM_VERSION@-dev,
+Breaks: libclc-amdgcn, libclc-ptx, libclc-r600
+Provides: libclc-x.y
+Conflicts: libclc-x.y
+Replaces: libclc-x.y, libclc-amdgcn, libclc-ptx, libclc-r600,
+Description: OpenCL C language implementation - platform support
+ libclc is an open implementation of the OpenCL C programming language,
+ as specified by the OpenCL 1.1 Specification.
+ .
+ This package contains support for the amdgcn (AMD GPU), PTX and r600
+ platforms.
+
+Package: libclc-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Breaks: libclc-dev
+Provides: libclc-x.y-dev
+Conflicts: libclc-x.y-dev
+Replaces: libclc-dev, libclc-x.y-dev
+Description: OpenCL C language implementation - development files
+ libclc is an open implementation of the OpenCL C programming language,
+ as specified by the OpenCL 1.1 Specification.
+ .
+ This package contains development header files.
+
+# ------------- libunwind -------------
+
+Package: libunwind-@LLVM_VERSION@
+Section: libs
+Architecture: amd64 arm64 armhf i386 loong64 ppc64el ppc64 riscv64
+Multi-Arch: same
+Depends: ${shlibs:Depends},
+ ${misc:Depends}
+Provides: ${t64:Provides}, libunwind-x.y
+Conflicts: libunwind-x.y
+Replaces: libunwind-x.y
+Description: production-quality unwinder
+ libunwind is a production-quality unwinder, with platform support for DWARF
+ unwind info, SjLj, and ARM EHABI.
+ .
+ The low level libunwind API was designed to work either in-process (aka local)
+ or to operate on another process (aka remote), but only the local path has
+ been implemented. Remote unwinding remains as future work.
+
+Package: libunwind-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: amd64 arm64 armhf i386 loong64 ppc64el ppc64 riscv64
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ libunwind-@LLVM_VERSION@ (= ${binary:Version})
+Provides: libunwind-dev, libunwind-x.y-dev
+Conflicts: libunwind-dev, libunwind-x.y-dev
+Replaces: libunwind-dev, libunwind-x.y-dev
+Description: production-quality unwinder
+ libunwind is a production-quality unwinder, with platform support for DWARF
+ unwind info, SjLj, and ARM EHABI.
+ .
+ The low level libunwind API was designed to work either in-process (aka local)
+ or to operate on another process (aka remote), but only the local path has
+ been implemented. Remote unwinding remains as future work.
+
+# ------------- mlir -------------
+
+Package: mlir-@LLVM_VERSION@-tools
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Multi-Level Intermediate Representation tools
+ Novel approach to building reusable and extensible compiler infrastructure.
+ MLIR aims to address software fragmentation, improve compilation for
+ heterogeneous hardware, significantly reduce the cost of building domain
+ specific compilers, and aid in connecting existing compilers together.
+ .
+ This package provides tools.
+
+Package: libmlir-@LLVM_VERSION@
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends},
+ ${misc:Depends}
+Provides: ${t64:Provides}, libmlir-x.y
+Conflicts: libmlir-x.y
+Replaces: libmlir-x.y
+Description: Multi-Level Intermediate Representation library
+ Novel approach to building reusable and extensible compiler infrastructure.
+ MLIR aims to address software fragmentation, improve compilation for
+ heterogeneous hardware, significantly reduce the cost of building domain
+ specific compilers, and aid in connecting existing compilers together.
+
+
+Package: libmlir-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ libmlir-@LLVM_VERSION@ (= ${binary:Version})
+Breaks: libmlir-dev
+Provides: libmlir-x.y-dev
+Conflicts: libmlir-x.y-dev
+Replaces: libmlir-dev, libmlir-x.y-dev
+Description: Multi-Level Intermediate Representation library
+ Novel approach to building reusable and extensible compiler infrastructure.
+ MLIR aims to address software fragmentation, improve compilation for
+ heterogeneous hardware, significantly reduce the cost of building domain
+ specific compilers, and aid in connecting existing compilers together.
+
+
+# ------------- bolt -------------
+
+Package: bolt-@LLVM_VERSION@
+Architecture: amd64 arm64
+Depends: ${shlibs:Depends}, ${misc:Depends}, libbolt-@LLVM_VERSION@-dev (= ${binary:Version}),
+Pre-Depends: ${misc:Pre-Depends}
+Description: Post-link optimizer
+ It achieves the improvements by optimizing application's code layout based on
+ execution profile gathered by sampling profiler.
+
+Package: libbolt-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: amd64 arm64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Post-link optimizer
+ It achieves the improvements by optimizing application's code layout based on
+ execution profile gathered by sampling profiler.
+
+# ------------- flang -------------
+
+Package: flang-@LLVM_VERSION@
+# no 32bit support
+# https://github.com/llvm/llvm-project/issues/59845
+Architecture: @FLANG_ARCHS@
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dep:devlibs}, libflang-@LLVM_VERSION@-dev (= ${binary:Version}),
+Provides: fortran-compiler, gfortran-mod-15
+Description: Fortran compiler
+ Ground-up implementation of a Fortran front end written in
+ modern C++.
+ .
+ While it is capable of generating executables for a number
+ of examples, some functionalities are still missing.
+
+Package: libflang-@LLVM_VERSION@-dev
+Architecture: @FLANG_ARCHS@
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${dep:devlibs},
+Description: Flang library - Development package
+ Ground-up implementation of a Fortran front end written in
+ modern C++.
+ .
+ While it is capable of generating executables for a number
+ of examples, some functionalities are still missing.
+ .
+ This package contains the flang libraries and headers.
+
+# ------------- LLVM libc -------------
+
+Package: libllvmlibc-@LLVM_VERSION@-dev
+Section: libdevel
+Architecture: amd64 arm64 armhf
+Description: LLVM C Library - dev package
+ Implementation of the C standard library targeting C17 and above.
+ .
+ This is an experimental project. Don't use in production.

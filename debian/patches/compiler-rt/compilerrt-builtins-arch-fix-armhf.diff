@@ -1,0 +1,18 @@
+fix builtins armhf default arch detection by adding the same armhf triple
+handling use for compiler-rt
+Index: llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/compiler-rt/lib/builtins/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240220124703+f122268c0441.orig/compiler-rt/lib/builtins/CMakeLists.txt
++++ llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/compiler-rt/lib/builtins/CMakeLists.txt
+@@ -29,6 +29,11 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURR
+     load_llvm_config()
+   endif()
+   construct_compiler_rt_default_triple()
++  if ("${COMPILER_RT_DEFAULT_TARGET_TRIPLE}" MATCHES ".*hf$")
++    if (${COMPILER_RT_DEFAULT_TARGET_ARCH} MATCHES "^arm")
++      set(COMPILER_RT_DEFAULT_TARGET_ARCH "armhf")
++    endif()
++  endif()
+ 
+   include(SetPlatformToolchainTools)
+   if(APPLE)

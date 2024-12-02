@@ -1,0 +1,7 @@
+# install everything in /usr/lib/@DEB_HOST_MULTIARCH@/
+
+# this is libLLVM.so.1, renamed to it's soname in the override_dh_install target
+usr/lib/llvm-@LLVM_VERSION@/lib/libLLVM.so.@LLVM_VERSION@.@LLVM_VERSION_MINOR@ /usr/lib/@DEB_HOST_MULTIARCH@/
+
+# this is a symlink installed by upstream
+usr/lib/llvm-@LLVM_VERSION@/lib/libLLVM-@LLVM_VERSION@.so /usr/lib/@DEB_HOST_MULTIARCH@/

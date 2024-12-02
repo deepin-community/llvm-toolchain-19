@@ -1,0 +1,26 @@
+usr/include/llvm-c-@LLVM_VERSION@/llvm-c usr/lib/llvm-@LLVM_VERSION@/include/llvm-c
+usr/include/llvm-@LLVM_VERSION@/llvm usr/lib/llvm-@LLVM_VERSION@/include/llvm
+usr/include/llvm-c-@LLVM_VERSION@/llvm-c usr/lib/llvm-@LLVM_VERSION@/build/include/llvm-c
+usr/include/llvm-@LLVM_VERSION@/llvm usr/lib/llvm-@LLVM_VERSION@/build/include/llvm
+
+usr/lib/llvm-@LLVM_VERSION@/include/ usr/lib/llvm-@LLVM_VERSION@/build/include
+usr/lib/llvm-@LLVM_VERSION@/lib/     usr/lib/llvm-@LLVM_VERSION@/build/lib
+usr/lib/llvm-@LLVM_VERSION@/share/   usr/lib/llvm-@LLVM_VERSION@/build/share
+usr/lib/llvm-@LLVM_VERSION@/ usr/lib/llvm-@LLVM_VERSION@/build/Release
+usr/lib/llvm-@LLVM_VERSION@/ usr/lib/llvm-@LLVM_VERSION@/build/Debug+Asserts
+
+usr/lib/llvm-@LLVM_VERSION@/lib/cmake/llvm usr/lib/llvm-@LLVM_VERSION@/cmake
+usr/lib/llvm-@LLVM_VERSION@/lib/cmake/llvm usr/lib/llvm-@LLVM_VERSION@/share/llvm/cmake
+
+# FIXME: CMake requires this file, but for what? Fix LLVMExports.cmake instead?
+#
+# CMake Error at /usr/lib/llvm-19/lib/cmake/llvm/LLVMExports.cmake:1908 (message):
+#  The imported target "LLVM" references the file
+#
+#     "/usr/lib/llvm-19/lib/libLLVM.so.1"
+#
+#  but this file does not exist.
+usr/lib/llvm-@LLVM_VERSION@/lib/libLLVM.so.@LLVM_VERSION@.@LLVM_VERSION_MINOR@ usr/lib/llvm-@LLVM_VERSION@/lib/libLLVM.so.1
+
+# symlink to the soname in the llvm libdir
+usr/lib/@DEB_HOST_MULTIARCH@/libLLVM.so.@LLVM_VERSION@.@LLVM_VERSION_MINOR@ usr/lib/llvm-@LLVM_VERSION@/lib/libLLVM.so.@LLVM_VERSION@.@LLVM_VERSION_MINOR@

@@ -1,0 +1,2 @@
+libclang-rt-@LLVM_VERSION@-dev: arch-dependent-file-not-in-arch-specific-directory *usr/lib/llvm-@LLVM_VERSION@/lib/*
+libclang-rt-@LLVM_VERSION@-dev: no-code-sections *usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION@*/lib/linux/libclang_rt.asan_static-i386.a*

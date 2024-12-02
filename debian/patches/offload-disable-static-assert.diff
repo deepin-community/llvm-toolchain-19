@@ -1,0 +1,17 @@
+Index: llvm-toolchain-snapshot_19~++20240614043023+43e6f46936e1/offload/include/Shared/APITypes.h
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240614043023+43e6f46936e1.orig/offload/include/Shared/APITypes.h
++++ llvm-toolchain-snapshot_19~++20240614043023+43e6f46936e1/offload/include/Shared/APITypes.h
+@@ -112,10 +112,10 @@ struct KernelArgsTy {
+ };
+ static_assert(sizeof(KernelArgsTy().Flags) == sizeof(uint64_t),
+               "Invalid struct size");
+-static_assert(sizeof(KernelArgsTy) ==
++/*static_assert(sizeof(KernelArgsTy) ==
+                   (8 * sizeof(int32_t) + 3 * sizeof(int64_t) +
+                    4 * sizeof(void **) + 2 * sizeof(int64_t *)),
+-              "Invalid struct size");
++				   "Invalid struct size");*/
+ 
+ /// Flat array of kernel launch parameters and their total size.
+ struct KernelLaunchParamsTy {

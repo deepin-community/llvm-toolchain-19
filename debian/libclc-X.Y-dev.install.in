@@ -1,0 +1,3 @@
+usr/include/clc
+usr/lib/pkgconfig/libclc.pc
+libclc/check_external_calls.sh usr/lib/llvm-@LLVM_VERSION@/share/libclc

@@ -1,0 +1,2 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/wasm32-wasi/libc++.a /usr/lib/wasm32-wasi/libc++.a
+usr/lib/llvm-@LLVM_VERSION@/include/wasm32-wasi/c++/v1 /usr/include/wasm32-wasi/c++/v1

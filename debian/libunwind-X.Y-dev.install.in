@@ -1,0 +1,5 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/libunwind.so
+usr/lib/llvm-@LLVM_VERSION@/lib/libunwind.a
+usr/include/libunwind
+usr/lib/llvm-@LLVM_VERSION@/include/*unwind*
+usr/lib/llvm-@LLVM_VERSION@/include/mach-o/

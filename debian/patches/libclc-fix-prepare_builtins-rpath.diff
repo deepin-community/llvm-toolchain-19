@@ -1,0 +1,16 @@
+set rpath for prepare_builtins build utility to find correct stage2
+libs at runtime when executed as part of a build
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/libclc/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/libclc/CMakeLists.txt
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/libclc/CMakeLists.txt
+@@ -177,6 +177,9 @@ endif()
+ target_compile_definitions( prepare_builtins PRIVATE ${LLVM_VERSION_DEFINE} )
+ # These were not properly reported in early LLVM and we don't need them
+ target_compile_options( prepare_builtins PRIVATE -fno-rtti -fno-exceptions )
++set_target_properties( prepare_builtins
++                       PROPERTIES INSTALL_RPATH "${LLVM_LIBDIR}"
++                       BUILD_WITH_INSTALL_RPATH "ON")
+ 
+ # Setup arch devices
+ set( r600--_devices cedar cypress barts cayman )

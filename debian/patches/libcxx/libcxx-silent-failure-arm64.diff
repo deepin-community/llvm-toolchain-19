@@ -1,0 +1,25 @@
+Index: llvm-toolchain-snapshot_19~++20240523103209+70d1844abebb/libcxx/test/std/thread/thread.condition/thread.condition.condvar/wait_for.pass.cpp
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240523103209+70d1844abebb.orig/libcxx/test/std/thread/thread.condition/thread.condition.condvar/wait_for.pass.cpp
++++ llvm-toolchain-snapshot_19~++20240523103209+70d1844abebb/libcxx/test/std/thread/thread.condition/thread.condition.condvar/wait_for.pass.cpp
+@@ -7,6 +7,7 @@
+ //===----------------------------------------------------------------------===//
+ 
+ // UNSUPPORTED: no-threads, c++03
++// XFAIL: *
+ 
+ // <condition_variable>
+ 
+Index: llvm-toolchain-snapshot_19~++20240523103209+70d1844abebb/libcxx/test/std/thread/thread.mutex/thread.lock/thread.lock.shared/thread.lock.shared.locking/lock.pass.cpp
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240523103209+70d1844abebb.orig/libcxx/test/std/thread/thread.mutex/thread.lock/thread.lock.shared/thread.lock.shared.locking/lock.pass.cpp
++++ llvm-toolchain-snapshot_19~++20240523103209+70d1844abebb/libcxx/test/std/thread/thread.mutex/thread.lock/thread.lock.shared/thread.lock.shared.locking/lock.pass.cpp
+@@ -9,6 +9,8 @@
+ // UNSUPPORTED: no-threads
+ // UNSUPPORTED: c++03, c++11
+ 
++// XFAIL: *
++
+ // <shared_mutex>
+ 
+ // template <class Mutex> class shared_lock;

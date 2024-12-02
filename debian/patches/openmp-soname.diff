@@ -1,0 +1,14 @@
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/openmp/runtime/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/openmp/runtime/CMakeLists.txt
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/openmp/runtime/CMakeLists.txt
+@@ -419,7 +419,8 @@ else()
+   set(LIBOMP_INSTALL_KIND ARCHIVE)
+ endif()
+ 
+-set(LIBOMP_LIB_FILE ${LIBOMP_LIB_NAME}${LIBOMP_LIBRARY_SUFFIX})
++set(LIBOMP_LIB_FILE ${LIBOMP_LIB_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}.${LIBOMP_VERSION_MAJOR})
++
+ 
+ # Optional backwards compatibility aliases.
+ set(LIBOMP_INSTALL_ALIASES TRUE CACHE BOOL

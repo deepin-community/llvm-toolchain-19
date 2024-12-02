@@ -1,0 +1,1 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/libclang-cpp.so.@LLVM_VERSION@.@LLVM_VERSION_MINOR@  /usr/lib/@DEB_HOST_MULTIARCH@/

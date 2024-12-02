@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+
+[!powerpc] usr/lib/llvm-@LLVM_VERSION@/lib/LLVMgold.so usr/lib/bfd-plugins/LLVMgold-@LLVM_VERSION@.so

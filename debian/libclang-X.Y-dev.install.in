@@ -1,0 +1,14 @@
+#!/usr/bin/dh-exec
+
+usr/lib/llvm-@LLVM_VERSION@/include/clang
+usr/lib/llvm-@LLVM_VERSION@/include/clang-c
+usr/lib/llvm-@LLVM_VERSION@/include/clang-tidy
+usr/lib/llvm-@LLVM_VERSION@/lib/libclang*a
+usr/lib/llvm-@LLVM_VERSION@/lib/libclang.so
+usr/lib/llvm-@LLVM_VERSION@/lib/libclang-@LLVM_VERSION@*.so
+usr/lib/llvm-@LLVM_VERSION@/lib/libfindAllSymbols.a
+
+# clangd grpc architectures
+#grpc [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] usr/lib/llvm-@LLVM_VERSION@/lib/libclangdRemoteIndexProto.a
+#grpc [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] usr/lib/llvm-@LLVM_VERSION@/lib/libclangdRemoteIndexServiceProto.a
+#grpc [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] usr/lib/llvm-@LLVM_VERSION@/lib/libclangdMonitoringServiceProto.a

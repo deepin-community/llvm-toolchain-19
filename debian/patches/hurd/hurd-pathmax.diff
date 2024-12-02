@@ -1,0 +1,33 @@
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/Basic/FileManager.cpp
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/lib/Basic/FileManager.cpp
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/Basic/FileManager.cpp
+@@ -609,6 +609,12 @@ FileManager::getNoncachedStatValue(Strin
+   return std::error_code();
+ }
+ 
++// For GNU Hurd
++#if defined(__GNU__) && !defined(PATH_MAX)
++# define PATH_MAX 4096
++#endif
++
++
+ void FileManager::GetUniqueIDMapping(
+     SmallVectorImpl<OptionalFileEntryRef> &UIDToFiles) const {
+   UIDToFiles.clear();
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/lldb/include/lldb/lldb-defines.h
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/lldb/include/lldb/lldb-defines.h
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/lldb/include/lldb/lldb-defines.h
+@@ -15,6 +15,11 @@
+ #define INT32_MAX 2147483647
+ #endif
+ 
++// For GNU Hurd
++#if defined(__GNU__) && !defined(PATH_MAX)
++# define PATH_MAX 4096
++#endif
++
+ #if !defined(UINT32_MAX)
+ #define UINT32_MAX 4294967295U
+ #endif

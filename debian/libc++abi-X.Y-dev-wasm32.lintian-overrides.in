@@ -1,0 +1,1 @@
+libc++abi-@LLVM_VERSION@-dev-wasm32: arch-independent-package-contains-binary-or-object *usr/lib/llvm-@LLVM_VERSION@/lib/wasm32-wasi/libc++abi.a*

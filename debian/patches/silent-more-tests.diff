@@ -1,0 +1,23 @@
+# Comment the tests for the code coverage (fails otherwise)
+
+
+---
+ test/BugPoint/crash-narrowfunctiontest.ll |    1 +
+ test/BugPoint/metadata.ll                 |    3 ++-
+ test/BugPoint/remove_arguments_test.ll    |    1 +
+ test/Feature/load_module.ll               |    1 +
+ 4 files changed, 5 insertions(+), 1 deletion(-)
+
+Index: llvm-toolchain-snapshot_16~++20221213075229+4f9d069b3b53/llvm/test/BugPoint/metadata.ll
+===================================================================
+--- llvm-toolchain-snapshot_16~++20221213075229+4f9d069b3b53.orig/llvm/test/BugPoint/metadata.ll
++++ llvm-toolchain-snapshot_16~++20221213075229+4f9d069b3b53/llvm/test/BugPoint/metadata.ll
+@@ -18,6 +18,8 @@
+ ; NOTYPE: !DICompileUnit
+ ; NOTYPE-NOT: !DIBasicType
+ 
++; XFAIL: *
++
+ %rust_task = type {}
+ define void @test(ptr %a, ptr %b) !dbg !9 {
+     %s = mul i8 22, 9, !attach !0, !dbg !10

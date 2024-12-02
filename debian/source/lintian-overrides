@@ -1,0 +1,28 @@
+# Removed by patch remove-dbtree.diff
+source: source-is-missing clang/www/analyzer/scripts/dbtree.js
+
+# Reported here https://bugs.llvm.org/show_bug.cgi?id=32962
+# No activity, silent it to avoid false positive in automation
+source: license-problem-convert-utf-code llvm/lib/Support/ConvertUTF.cpp
+# A unit test. No big deal
+source: source-is-missing lldb/unittests/ObjectFile/ELF/Inputs/early-section-headers.so
+# Generated See https://github.com/llvm-mirror/lldb/commit/7aee683f410ffc27b61a8e9779b9df9a7c0fff7d#diff-dcfea8d8a36846a00781105f8618e06d
+source: source-is-missing lldb/lit/Modules/ELF/Inputs/PT_LOAD-overlap-section.elf
+
+# Makes sense for the testsuites
+source: source-contains-prebuilt-windows-binary lldb/unittests/SymbolFile/DWARF/Inputs/test-dwarf.exe
+source: source-contains-prebuilt-windows-binary lldb/unittests/SymbolFile/PDB/Inputs/test-pdb-types.exe
+source: source-contains-prebuilt-windows-binary lldb/unittests/SymbolFile/PDB/Inputs/test-pdb.exe
+source: source-is-missing lldb/lit/Modules/ELF/Inputs/netbsd-amd64.core
+source: source-is-missing llgo/third_party/gofrontend/libgo/go/debug/dwarf/testdata/*.elf*
+source: source-is-missing llgo/third_party/gofrontend/libgo/go/debug/elf/testdata/gcc-*-exec
+source: source-is-missing llgo/third_party/gofrontend/libgo/go/debug/elf/testdata/*.obj
+source: source-is-missing llvm/test/*
+source: source-is-missing llvm/unittests/*
+source: source-is-missing lldb/test/*
+source: source-is-missing lld/test/*
+source: source-is-missing clang/test/Driver/Inputs/dummy-elf.o
+source: source-is-missing clang/test/CodeGen/Inputs/memprof.exe
+
+# By design
+source: invalid-arch-string-in-source-relation riscv64*

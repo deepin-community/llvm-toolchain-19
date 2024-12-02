@@ -1,0 +1,4 @@
+libclang-rt-@LLVM_VERSION@-dev-wasm32: arch-independent-package-contains-binary-or-object *usr/lib/llvm-@LLVM_VERSION@/lib/*
+libclang-rt-@LLVM_VERSION@-dev-wasm32: arch-dependent-file-not-in-arch-specific-directory *usr/lib/llvm-@LLVM_VERSION@/lib/*
+# wasm code
+libclang-rt-@LLVM_VERSION@-dev-wasm32: no-code-sections *usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION@*/lib/wasi/libclang_rt.builtins-wasm32.a*
