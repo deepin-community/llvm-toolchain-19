@@ -1,0 +1,23 @@
+Restore that for now, we're not GenToo ...
+
+https://reviews.llvm.org/D148945
+https://reviews.llvm.org/D122444
+
+Index: llvm-toolchain-snapshot_19~++20240424094944+78ebaa2d798f/clang/lib/Driver/ToolChains/Linux.cpp
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240424094944+78ebaa2d798f.orig/clang/lib/Driver/ToolChains/Linux.cpp
++++ llvm-toolchain-snapshot_19~++20240424094944+78ebaa2d798f/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -345,6 +345,13 @@ Linux::Linux(const Driver &D, const llvm
+ 
+   Generic_GCC::AddMultiarchPaths(D, SysRoot, OSLibDir, Paths);
+ 
++  // The deprecated -DLLVM_ENABLE_PROJECTS=libcxx configuration installs
++  // libc++.so in D.Dir+"/../lib/". Detect this path.
++  // TODO Remove once LLVM_ENABLE_PROJECTS=libcxx is unsupported.
++  if (StringRef(D.Dir).starts_with(SysRoot) &&
++      D.getVFS().exists(D.Dir + "/../lib/libc++.so"))
++    addPathIfExists(D, D.Dir + "/../lib", Paths);
++
+   addPathIfExists(D, concat(SysRoot, "/lib"), Paths);
+   addPathIfExists(D, concat(SysRoot, "/usr/lib"), Paths);
+ }

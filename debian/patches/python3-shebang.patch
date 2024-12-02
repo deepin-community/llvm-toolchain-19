@@ -1,0 +1,752 @@
+Description: change all shebangs to Python3
+ find . -name "*.py" -exec sed "s|\!/usr/bin/env python$|\!/usr/bin/env python3|g" -i {} \;
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang-tools-extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang-tools-extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang-tools-extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ #
+ # =- run-find-all-symbols.py - Parallel find-all-symbols runner -*- python  -*-=#
+ #
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/bindings/python/examples/cindex/cindex-dump.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/bindings/python/examples/cindex/cindex-dump.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/bindings/python/examples/cindex/cindex-dump.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # ===- cindex-dump.py - cindex/Python Source Dump -------------*- python -*--===#
+ #
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/bindings/python/examples/cindex/cindex-includes.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/bindings/python/examples/cindex/cindex-includes.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/bindings/python/examples/cindex/cindex-includes.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # ===- cindex-includes.py - cindex/Python Inclusion Graph -----*- python -*--===#
+ #
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/tools/scan-view/bin/scan-view
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/tools/scan-view/bin/scan-view
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/tools/scan-view/bin/scan-view
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/tools/scan-view/share/startfile.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/tools/scan-view/share/startfile.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/tools/scan-view/share/startfile.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # -*- coding: utf-8 -*-
+ 
+ """Utility for opening a file using the default application in a cross-platform
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/ABITest/ABITestGen.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/ABITest/ABITestGen.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/ABITest/ABITestGen.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import absolute_import, division, print_function
+ from pprint import pprint
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/CIndex/completion_logger_server.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/CIndex/completion_logger_server.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/CIndex/completion_logger_server.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ from __future__ import absolute_import, division, print_function
+ import sys
+ from socket import *
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/CaptureCmd
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/CaptureCmd
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/CaptureCmd
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """CaptureCmd - A generic tool for capturing information about the
+ invocations of another program.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/CmpDriver
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/CmpDriver
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/CmpDriver
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ A simple utility that compares tool invocations and exit codes issued by
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/FindSpecRefs
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/FindSpecRefs
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/FindSpecRefs
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import re
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/FuzzTest
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/FuzzTest
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/FuzzTest
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ This is a generic fuzz testing tool, see --help for more information.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/TestUtils/deep-stack.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/TestUtils/deep-stack.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/TestUtils/deep-stack.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import absolute_import, division, print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/CmpRuns.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/analyzer/CmpRuns.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/CmpRuns.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ CmpRuns - A simple tool for comparing two static analyzer runs to determine
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SATestAdd.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/analyzer/SATestAdd.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SATestAdd.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ Static Analyzer qualification infrastructure: adding a new project to
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SATestBuild.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/analyzer/SATestBuild.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SATestBuild.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ Static Analyzer qualification infrastructure.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SATestUpdateDiffs.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/analyzer/SATestUpdateDiffs.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SATestUpdateDiffs.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ Update reference results for static analyzer.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SumTimerInfo.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/analyzer/SumTimerInfo.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/SumTimerInfo.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ Script to Summarize statistics in the scan-build output.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/exploded-graph-rewriter.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/analyzer/exploded-graph-rewriter.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/analyzer/exploded-graph-rewriter.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ #
+ # ===- exploded-graph-rewriter.py - ExplodedGraph dump tool -----*- python -*--#
+ #
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/check_cfc/check_cfc.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/check_cfc/check_cfc.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/check_cfc/check_cfc.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """Check CFC - Check Compile Flow Consistency
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/check_cfc/obj_diff.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/check_cfc/obj_diff.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/check_cfc/obj_diff.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import absolute_import, division, print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/check_cfc/test_check_cfc.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/check_cfc/test_check_cfc.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/check_cfc/test_check_cfc.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """Test internal functions within check_cfc.py."""
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/modfuzz.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/modfuzz.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/modfuzz.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # To use:
+ #  1) Update the 'decls' list below with your fuzzing configuration.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/token-delta.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/clang/utils/token-delta.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/clang/utils/token-delta.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import absolute_import, division, print_function
+ import os
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/asan/scripts/asan_symbolize.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/compiler-rt/lib/asan/scripts/asan_symbolize.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/asan/scripts/asan_symbolize.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # ===- lib/asan/scripts/asan_symbolize.py -----------------------------------===#
+ #
+ # Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/fuzzer/scripts/unbalanced_allocs.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/compiler-rt/lib/fuzzer/scripts/unbalanced_allocs.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/fuzzer/scripts/unbalanced_allocs.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # ===- lib/fuzzer/scripts/unbalanced_allocs.py ------------------------------===#
+ #
+ # Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/sanitizer_common/scripts/gen_dynamic_list.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/compiler-rt/lib/sanitizer_common/scripts/gen_dynamic_list.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/sanitizer_common/scripts/gen_dynamic_list.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # ===- lib/sanitizer_common/scripts/gen_dynamic_list.py ---------------------===#
+ #
+ # Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/sanitizer_common/scripts/sancov.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/compiler-rt/lib/sanitizer_common/scripts/sancov.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/compiler-rt/lib/sanitizer_common/scripts/sancov.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # Merge or print the coverage data collected by asan's coverage.
+ # Input files are sequences of 4-byte integers.
+ # We need to merge these integers into a set and then
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/libcxx/utils/cat_files.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/libcxx/utils/cat_files.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/libcxx/utils/cat_files.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # ===----------------------------------------------------------------------===##
+ #
+ # Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/libcxx/utils/generate_feature_test_macro_components.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/libcxx/utils/generate_feature_test_macro_components.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/libcxx/utils/generate_feature_test_macro_components.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ from builtins import range
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lld/utils/benchmark.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/lld/utils/benchmark.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lld/utils/benchmark.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ #
+ # Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+ # See https://llvm.org/LICENSE.txt for license information.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/examples/python/file_extract.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/lldb/examples/python/file_extract.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/examples/python/file_extract.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import string
+ import struct
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/packages/Python/lldbsuite/test/bench.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/lldb/packages/Python/lldbsuite/test/bench.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/packages/Python/lldbsuite/test/bench.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ A simple bench runner which delegates to the ./dotest.py test driver to run the
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/scripts/analyze-project-deps.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/lldb/scripts/analyze-project-deps.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/scripts/analyze-project-deps.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import argparse
+ import itertools
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/scripts/verify_api.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/lldb/scripts/verify_api.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/scripts/verify_api.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import subprocess
+ import optparse
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/utils/lui/lui.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/lldb/utils/lui/lui.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/utils/lui/lui.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ ##===-- lui.py -----------------------------------------------*- Python -*-===##
+ ##
+ # Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/utils/lui/sandbox.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/lldb/utils/lui/sandbox.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/lldb/utils/lui/sandbox.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ ##===-- sandbox.py -------------------------------------------*- Python -*-===##
+ ##
+ # Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/cached/genk-timing.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/examples/Kaleidoscope/MCJIT/cached/genk-timing.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/cached/genk-timing.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/cached/split-lib.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/examples/Kaleidoscope/MCJIT/cached/split-lib.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/cached/split-lib.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/complete/genk-timing.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/examples/Kaleidoscope/MCJIT/complete/genk-timing.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/complete/genk-timing.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/complete/split-lib.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/examples/Kaleidoscope/MCJIT/complete/split-lib.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/complete/split-lib.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/lazy/genk-timing.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/examples/Kaleidoscope/MCJIT/lazy/genk-timing.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/examples/Kaleidoscope/MCJIT/lazy/genk-timing.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/test/BugPoint/compile-custom.ll.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/test/BugPoint/compile-custom.ll.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/test/BugPoint/compile-custom.ll.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/test/Other/opt-bisect-helper.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/test/Other/opt-bisect-helper.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/test/Other/opt-bisect-helper.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/test/TableGen/JSON-check.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/test/TableGen/JSON-check.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/test/TableGen/JSON-check.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import sys
+ import subprocess
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/opt-diff.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/tools/opt-viewer/opt-diff.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/opt-diff.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/opt-stats.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/tools/opt-viewer/opt-stats.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/opt-stats.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/opt-viewer.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/tools/opt-viewer/opt-viewer.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/opt-viewer.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/optrecord.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/tools/opt-viewer/optrecord.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/tools/opt-viewer/optrecord.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/Misc/zkill
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/Misc/zkill
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/Misc/zkill
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import re
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/abtest.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/abtest.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/abtest.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ #
+ # Given a previous good compile narrow down miscompiles.
+ # Expects two directories named "before" and "after" each containing a set of
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/bisect
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/bisect
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/bisect
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ #
+ # The way you use this is you create a script that takes in as its first
+ # argument a count. The script passes into LLVM the count via a command
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/bugpoint_gisel_reducer.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/bugpoint_gisel_reducer.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/bugpoint_gisel_reducer.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """Reduces GlobalISel failures.
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/clang-parse-diagnostics-file
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/clang-parse-diagnostics-file
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/clang-parse-diagnostics-file
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import plistlib
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/create_ladder_graph.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/create_ladder_graph.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/create_ladder_graph.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ """A ladder graph creation program.
+ 
+ This is a python program that creates c source code that will generate
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/extract_symbols.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/extract_symbols.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/extract_symbols.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """A tool for extracting a list of symbols to export
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/extract_vplan.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/extract_vplan.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/extract_vplan.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # This script extracts the VPlan digraphs from the vectoriser debug messages
+ # and saves them in individual dot files (one for each plan). Optionally, and
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/indirect_calls.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/indirect_calls.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/indirect_calls.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """A tool for looking for indirect jumps and calls in x86 binaries.
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/lit/ProgressBar.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/lit/ProgressBar.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/lit/ProgressBar.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # Source: http://code.activestate.com/recipes/475116/, with
+ # modifications by Daniel Dunbar.
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/googletest-format/DummySubDir/OneTest.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/googletest-format/DummySubDir/OneTest.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/googletest-format/DummySubDir/OneTest.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import sys
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/googletest-timeout/DummySubDir/OneTest.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/googletest-timeout/DummySubDir/OneTest.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/googletest-timeout/DummySubDir/OneTest.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import sys
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-env/print_environment.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/shtest-env/print_environment.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-env/print_environment.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ import os
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-format/external_shell/write-bad-encoding.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/shtest-format/external_shell/write-bad-encoding.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-format/external_shell/write-bad-encoding.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import sys
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/check_args.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/shtest-shell/check_args.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/check_args.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import argparse
+ import platform
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/check_path.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/shtest-shell/check_path.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/check_path.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/write-to-stderr.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/shtest-shell/write-to-stderr.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/write-to-stderr.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import sys
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/write-to-stdout-and-stderr.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/lit/tests/Inputs/shtest-shell/write-to-stdout-and-stderr.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/lit/tests/Inputs/shtest-shell/write-to-stdout-and-stderr.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import sys
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/llvm-gisel-cov.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/llvm-gisel-cov.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/llvm-gisel-cov.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ """
+ Summarize the information in the given coverage files.
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/prepare-code-coverage-artifact.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/prepare-code-coverage-artifact.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/prepare-code-coverage-artifact.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/release/findRegressions-nightly.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/release/findRegressions-nightly.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/release/findRegressions-nightly.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ from __future__ import print_function
+ 
+ import re, string, sys, os, time
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/release/findRegressions-simple.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/release/findRegressions-simple.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/release/findRegressions-simple.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ import re, string, sys, os, time, math
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/shuffle_fuzz.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/shuffle_fuzz.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/shuffle_fuzz.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """A shuffle vector fuzz tester.
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/shuffle_select_fuzz_tester.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/shuffle_select_fuzz_tester.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/shuffle_select_fuzz_tester.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """A shuffle-select vector fuzz tester.
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/sort_includes.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/sort_includes.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/sort_includes.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """Script to sort the top-most block of #include lines.
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/unicode-case-fold.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/unicode-case-fold.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/unicode-case-fold.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ """
+ Unicode case folding database conversion utility
+ 
+Index: llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/wciia.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7.orig/llvm/utils/wciia.py
++++ llvm-toolchain-snapshot_19~++20240423112228+dbcfb434a9c7/llvm/utils/wciia.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ """
+ wciia - Whose Code Is It Anyway
+ 

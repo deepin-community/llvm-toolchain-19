@@ -1,0 +1,4 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/libc++.so /usr/lib/@DEB_HOST_MULTIARCH@/libc++.so
+usr/lib/llvm-@LLVM_VERSION@/lib/libc++.a /usr/lib/@DEB_HOST_MULTIARCH@/libc++.a
+usr/lib/llvm-@LLVM_VERSION@/include/c++/v1 /usr/include/c++/v1
+usr/lib/llvm-@LLVM_VERSION@/lib/libc++experimental.a /usr/lib/@DEB_HOST_MULTIARCH@/libc++experimental.a

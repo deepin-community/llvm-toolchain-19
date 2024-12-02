@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_14~++20210826102344+84cbd71c9592/libcxx/test/libcxx/atomics/atomics.align/align.pass.cpp
+===================================================================
+--- llvm-toolchain-snapshot_14~++20210826102344+84cbd71c9592.orig/libcxx/test/libcxx/atomics/atomics.align/align.pass.cpp
++++ llvm-toolchain-snapshot_14~++20210826102344+84cbd71c9592/libcxx/test/libcxx/atomics/atomics.align/align.pass.cpp
+@@ -18,7 +18,7 @@
+ 
+ // GCC currently fails because it needs -fabi-version=6 to fix mangling of
+ // std::atomic when used with __attribute__((vector(X))).
+-// XFAIL: gcc
++// XFAIL: *
+ 
+ // This fails on PowerPC, as the LLIArr2 and Padding structs do not have
+ // adequate alignment, despite these types returning true for the query of

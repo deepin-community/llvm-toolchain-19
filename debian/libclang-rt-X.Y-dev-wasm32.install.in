@@ -1,0 +1,2 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION@*/lib/wasi/libclang_rt.builtins-wasm32.a
+

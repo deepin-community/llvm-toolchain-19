@@ -1,0 +1,140 @@
+# Debian versions
+clang-format-version.diff
+clang-analyzer-force-version.diff
+
+# Disabling features
+23-strlcpy_strlcat_warning_removed.diff
+
+declare_clear_cache.diff
+unwind-chain-inclusion.diff
+
+# Path updates
+python-clangpath.diff
+fix-clang-path-and-build.diff
+0048-Set-html_static_path-_static-everywhere.patch
+symbolizer-path.diff
+clang-tidy-run-bin.diff
+0001-tools-clang-cmake-resolve-symlinks-in-ClangConfig.cmake.patch
+debug-jit-path.diff
+
+# commented because of bug 903709
+#force-gcc-header-obj.diff
+
+do-not-fail-on-unexpected-pass.diff
+
+# Lib names
+0044-soname.diff
+lldb/lldb-soname.diff
+#lldb-libname.diff
+openmp-soname.diff
+
+# Disable some tests
+silent-gold-test.diff
+silent-more-tests.diff
+silent-MCJIIT-tests.diff
+silent-gold-utils.diff
+silent-test-failing-codeverage.diff
+silent-test-macho.diff
+silent-llvm-isel-fuzzer.diff
+remove-test-freezing.diff
+disable-llvm-symbolizer-test.diff
+disable-path-test-failing.diff
+
+# Decrease the freq for the keep alive
+test-keep-alive.diff
+
+# scan-build
+scan-build-clang-path.diff
+scan-view-fix-path.diff
+fix-scan-view-path.diff
+
+# lldb
+lldb/lldb-addversion-suffix-to-llvm-server-exec.patch
+lldb/lldb-missing-install.diff
+
+# Fix arch issue
+disable-error-xray.diff
+
+# OpenMP
+openmp/openmp-check-execstack.diff
+
+# libcxx
+libcxx/libcxxabi-test-don-t-fail-extended-long-double.patch
+libcxx/libcxx-test-fix-lockfree-test-for-i386.patch
+libcxx/libcxxabi-arm-ehabi-fix.patch
+libcxx/libcxx-silent-test-libcxx.diff
+libcxx/libcxx-silent-failure-ppc64el.diff
+libcxx/libcxx-silent-failure-arm64.diff
+libcxx/libcxx-libatomic-only-with-gcc-rtlib.diff
+libcxx/libcxxabi-fix-link-builtins.diff
+libcxx/libcxx-armhf-ftbfs.diff
+
+# Change default optims
+mips/mips-fpxx-enable.diff
+mips/mips-force-nomadd4.patch
+mips/mips-D101773-reloc.patch
+mips/syscall-mips64el-def.diff
+
+26-set-correct-float-abi.diff
+clang-baseline-fix-i386.patch
+disable-sse2-old-x86.diff
+clang-arm-default-vfp3-on-armv7a.patch
+
+# For the bootstrap
+clangd-atomic-cmake.patch
+
+# Fix docs
+#  https://reviews.llvm.org/D60380
+remove-apple-clang-manpage.diff
+0049-Use-Debian-provided-MathJax-everywhere.patch
+
+# Hurd port
+hurd/hurd-pathmax.diff
+hurd/hurd-f_type.diff
+
+930008-arm.diff
+bootstrap-fix-include-next.diff
+
+# bug 939472
+#try-to-unbreak-thinlto.diff
+#D67877-cmake-clang-example.patch
+
+python3-shebang.patch
+lldb/print-lldb-path.patch
+lower-python-dep.diff
+scan-build-py-fix-default-bin.diff
+
+omp-riscv64.patch
+lldb/test-disable-lldb-i386.diff
+llvm-fix-lld-linker-check.diff
+openmp-fix-runtimes-build.diff
+libclc-fix-prepare_builtins-rpath.diff
+llvm-runtimes-builtins-build-check.diff
+issue-54242.diff
+protobuf_3.21.patch
+
+# compiler-rt
+compiler-rt/compilerrt-builtins-arch-fix-armhf.diff
+compiler-rt/compilerrt-build-scudo-standalone-option.diff
+
+
+# wasm patches
+wasm/wasm-ld-path.diff
+wasm/wasm-compiler-rt-default.diff
+wasm/wasm-sysroot-usr.diff
+
+revert-update-doc.diff
+
+unwind-force-pthread-dl.diff
+force-sse2-compiler-rt.diff
+bolt-disable-emit-relocs.patch
+link-grpc.diff
+libclang-major-version-only.diff
+D148945-revert.diff
+arm32-defaults.diff
+disable-openmp-per-target.diff
+offload-disable-static-assert.diff
+link-with-package-metadata.diff
+env-lld-package-metadata.diff
+mips-mlir-xgot.diff
+ubuntu-plucky.patch

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e
+
+LLVM_VERSION=@LLVM_VERSION@
+
+# this is taken from libjsoncpp package
+# Presence of $AUTOPKGTEST_TMP implies that someone will handle cleanup for us, so we
+# can avoid duplicating the effort (signal handling, etc.) here.
+if [ -z "$AUTOPKGTEST_TMP" ]
+then
+	echo "Required envvar AUTOPKGTEST_TMP \"$AUTOPKGTEST_TMP\" is not set" >&2
+	exit 1
+fi
+
+
+# the idea was taken from spirv-llvm-translator package
+
+cd "$AUTOPKGTEST_TMP"
+cat <<EOF > CMakeLists.txt
+cmake_minimum_required(VERSION 3.22)
+project(cmake-clang-test)
+find_package(Clang $LLVM_VERSION.1 REQUIRED)
+
+EOF
+
+
+mkdir build && cd build
+cmake ..

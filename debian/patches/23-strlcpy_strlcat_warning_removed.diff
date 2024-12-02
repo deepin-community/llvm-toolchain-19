@@ -1,0 +1,194 @@
+---
+ clang/include/clang/Basic/Builtins.def                    |    8 +-
+ clang/lib/AST/Decl.cpp                                    |   12 +--
+ clang/lib/Sema/SemaChecking.cpp                           |   11 +-
+ clang/lib/StaticAnalyzer/Checkers/GenericTaintChecker.cpp |    6 -
+ clang/test/Sema/builtins.c                                |   11 +-
+ clang/test/Sema/warn-strlcpycat-size.c                    |   55 --------------
+ 6 files changed, 25 insertions(+), 78 deletions(-)
+
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/AST/Decl.cpp
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/lib/AST/Decl.cpp
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/AST/Decl.cpp
+@@ -4412,13 +4412,13 @@ unsigned FunctionDecl::getMemoryFunction
+   case Builtin::BImemmove:
+     return Builtin::BImemmove;
+ 
+-  case Builtin::BIstrlcpy:
+-  case Builtin::BI__builtin___strlcpy_chk:
+-    return Builtin::BIstrlcpy;
++//  case Builtin::BIstrlcpy:
++//  case Builtin::BI__builtin___strlcpy_chk:
++//    return Builtin::BIstrlcpy;
+ 
+-  case Builtin::BIstrlcat:
+-  case Builtin::BI__builtin___strlcat_chk:
+-    return Builtin::BIstrlcat;
++//  case Builtin::BIstrlcat:
++//  case Builtin::BI__builtin___strlcat_chk:
++//    return Builtin::BIstrlcat;
+ 
+   case Builtin::BI__builtin_memcmp:
+   case Builtin::BImemcmp:
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/Sema/SemaChecking.cpp
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/lib/Sema/SemaChecking.cpp
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/Sema/SemaChecking.cpp
+@@ -1348,8 +1348,8 @@ void Sema::checkFortifiedBuiltinMemoryFu
+   case Builtin::BI__builtin___memcpy_chk:
+   case Builtin::BI__builtin___memmove_chk:
+   case Builtin::BI__builtin___memset_chk:
+-  case Builtin::BI__builtin___strlcat_chk:
+-  case Builtin::BI__builtin___strlcpy_chk:
++//  case Builtin::BI__builtin___strlcat_chk:
++//  case Builtin::BI__builtin___strlcpy_chk:
+   case Builtin::BI__builtin___strncat_chk:
+   case Builtin::BI__builtin___strncpy_chk:
+   case Builtin::BI__builtin___stpncpy_chk:
+@@ -3422,10 +3422,10 @@ bool Sema::CheckFunctionCall(FunctionDec
+   switch (CMId) {
+   case 0:
+     return false;
+-  case Builtin::BIstrlcpy: // fallthrough
++/*  case Builtin::BIstrlcpy: // fallthrough
+   case Builtin::BIstrlcat:
+     CheckStrlcpycatArguments(TheCall, FnInfo);
+-    break;
++    break;*/
+   case Builtin::BIstrncat:
+     CheckStrncatArguments(TheCall, FnInfo);
+     break;
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/StaticAnalyzer/Checkers/GenericTaintChecker.cpp
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/lib/StaticAnalyzer/Checkers/GenericTaintChecker.cpp
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/lib/StaticAnalyzer/Checkers/GenericTaintChecker.cpp
+@@ -743,9 +743,9 @@ void GenericTaintChecker::initTaintRules
+        TR::Prop({{1, 2}}, {{0, ReturnValueIndex}})},
+       {{CDM::CLibraryMaybeHardened, {"strncat"}},
+        TR::Prop({{0, 1, 2}}, {{0, ReturnValueIndex}})},
+-      {{CDM::CLibraryMaybeHardened, {"strlcpy"}}, TR::Prop({{1, 2}}, {{0}})},
++/*      {{CDM::CLibraryMaybeHardened, {"strlcpy"}}, TR::Prop({{1, 2}}, {{0}})},
+       {{CDM::CLibraryMaybeHardened, {"strlcat"}}, TR::Prop({{0, 1, 2}}, {{0}})},
+-
++*/
+       // Usually the matching mode `CDM::CLibraryMaybeHardened` is sufficient
+       // for unified handling of a function `FOO()` and its hardened variant
+       // `__FOO_chk()`, but in the "sprintf" family the extra parameters of the
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/test/Sema/builtins.c
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/test/Sema/builtins.c
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/test/Sema/builtins.c
+@@ -195,12 +195,10 @@ void test18(void) {
+   void *ptr;
+ 
+   ptr = __builtin___memccpy_chk(dst, src, '\037', sizeof(src), sizeof(dst));
+-  result = __builtin___strlcpy_chk(dst, src, sizeof(dst), sizeof(dst));
+   result = __builtin___strlcat_chk(dst, src, sizeof(dst), sizeof(dst));
+ 
+   ptr = __builtin___memccpy_chk(dst, src, '\037', sizeof(src));      // expected-error {{too few arguments to function call}}
+   ptr = __builtin___strlcpy_chk(dst, src, sizeof(dst), sizeof(dst)); // expected-error {{incompatible integer to pointer conversion}}
+-  ptr = __builtin___strlcat_chk(dst, src, sizeof(dst), sizeof(dst)); // expected-error {{incompatible integer to pointer conversion}}
+ }
+ 
+ void no_ms_builtins(void) {
+@@ -214,7 +212,8 @@ void unavailable(void) {
+   __builtin_operator_delete(0); // expected-error {{'__builtin_operator_delete' is only available in C++}}
+ }
+ 
+-size_t strlcpy(char * restrict dst, const char * restrict src, size_t size);
++/*
++  size_t strlcpy(char * restrict dst, const char * restrict src, size_t size);
+ size_t strlcat(char * restrict dst, const char * restrict src, size_t size);
+ 
+ void Test19(void)
+@@ -235,6 +234,7 @@ void Test19(void)
+                                                                                    // expected-note {{change size argument to be the size of the destination}} \
+ 				                                                   // expected-warning {{'strlcat' will always overflow; destination buffer has size 20, but size argument is 40}}
+ }
++*/
+ 
+ char * Test20(char *p, const char *in, unsigned n)
+ {
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/test/Sema/warn-strlcpycat-size.c
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/test/Sema/warn-strlcpycat-size.c
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/test/Sema/warn-strlcpycat-size.c
+@@ -1,55 +0,0 @@
+-// RUN: %clang_cc1 -Wstrlcpy-strlcat-size -verify -fsyntax-only %s
+-
+-typedef __SIZE_TYPE__ size_t;
+-size_t strlcpy (char * restrict dst, const char * restrict src, size_t size);
+-size_t strlcat (char * restrict dst, const char * restrict src, size_t size);
+-size_t strlen (const char *s);
+-
+-char s1[100];
+-char s2[200];
+-char * s3;
+-
+-struct {
+-  char f1[100];
+-  char f2[100][3];
+-} s4, **s5;
+-
+-int x;
+-
+-void f(void)
+-{
+-  strlcpy(s1, s2, sizeof(s1)); // no warning
+-  strlcpy(s1, s2, sizeof(s2)); // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}} expected-note {{change size argument to be the size of the destination}}
+-  strlcpy(s1, s3, strlen(s3)+1); // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}} expected-note {{change size argument to be the size of the destination}}
+-  strlcat(s2, s3, sizeof(s3)); // expected-warning {{size argument in 'strlcat' call appears to be size of the source; expected the size of the destination}} expected-note {{change size argument to be the size of the destination}}
+-  strlcpy(s4.f1, s2, sizeof(s2)); // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}} expected-note {{change size argument to be the size of the destination}}
+-  strlcpy((*s5)->f2[x], s2, sizeof(s2)); // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}} expected-note {{change size argument to be the size of the destination}}
+-  strlcpy(s1+3, s2, sizeof(s2)); // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}}
+-}
+-
+-// Don't issue FIXIT for flexible arrays.
+-struct S {
+-  int y; 
+-  char x[];
+-};
+-
+-void flexible_arrays(struct S *s) {
+-  char str[] = "hi";
+-  strlcpy(s->x, str, sizeof(str));  // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}}
+-}
+-
+-// Don't issue FIXIT for destinations of size 1.
+-void size_1(void) {
+-  char z[1];
+-  char str[] = "hi";
+-
+-  strlcpy(z, str, sizeof(str));  // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}}
+-}
+-
+-// Support VLAs.
+-void vlas(int size) {
+-  char z[size];
+-  char str[] = "hi";
+-
+-  strlcpy(z, str, sizeof(str)); // expected-warning {{size argument in 'strlcpy' call appears to be size of the source; expected the size of the destination}} expected-note {{change size argument to be the size of the destination}}
+-}
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/include/clang/Basic/Builtins.td
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/include/clang/Basic/Builtins.td
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/include/clang/Basic/Builtins.td
+@@ -3316,7 +3316,8 @@ def SigLongJmp : GNULibBuiltin<"setjmp.h
+ 
+ // non-standard but very common
+ 
+-def StrlCpy : GNULibBuiltin<"string.h"> {
++/*
++  def StrlCpy : GNULibBuiltin<"string.h"> {
+   let Spellings = ["strlcpy"];
+   let Prototype = "size_t(char*, char const*, size_t)";
+ }
+@@ -3325,6 +3326,7 @@ def StrlCat : GNULibBuiltin<"string.h">
+   let Spellings = ["strlcat"];
+   let Prototype = "size_t(char*, char const*, size_t)";
+ }
++*/
+ 
+ def ObjcMsgSend : ObjCLibBuiltin<"objc_message.h"> {
+   let Spellings = ["objc_msgSend"];

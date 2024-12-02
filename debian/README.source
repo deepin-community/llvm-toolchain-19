@@ -1,0 +1,46 @@
+All programs and libraries shipped in this package are trying to stay as close
+as possible from upstream.
+
+However, because of the objectives of Debian, besides paths, some changes are
+made.
+
+The Debian packaging is also used by apt.llvm.org.
+
+From 12.0.1-10 & 13.0.0-9, the build system use the runtimes build system.
+This is now the upstream preferred way to build llvm.
+It means that some projects like libc++ or compiler-rt are built once clang
+is built.
+
+= File names =
+
+* To make sure that most of the llvm-toolchain packages are co-installable,
+files are installed in /usr/lib/llvm-X/
+and symlinks are managed by the other package llvm-defaults
+
+
+= CPU extensions =
+
+* For x86, SSE2 extensions are disabled (and the target CPU is i686 instead of
+  pentium4).
+
+* For armel, uses float ABI instead of hard.
+
+* For armv7-a, NEON extensions are disabled.
+
+* For mips, FPXX is enabled, MADD4 instructions are disabled.
+
+* For riscv64, the hard-float ABI is used instead of the float one, and
+  the target CPU is set to RV64GC instead of RV64I.
+
+* For s390x: set default abi to z196 for debian, and z13 for ubuntu.
+  See https://bugs.launchpad.net/ubuntu/+source/llvm-toolchain-10/+bug/1864226
+
+= Libraries =
+
+* sonames are created
+
+* Build-ID are enabled
+
+
+ -- Sylvestre Ledru <sylvestre@debian.org>, Mon, 30 Mar 2020 11:08:10 +0200
+

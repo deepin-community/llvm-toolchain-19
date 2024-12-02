@@ -1,0 +1,2 @@
+debian/man/clang-tidy-@LLVM_VERSION@.1
+debian/man/run-clang-tidy-@LLVM_VERSION@.1

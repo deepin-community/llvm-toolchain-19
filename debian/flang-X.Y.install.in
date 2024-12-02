@@ -1,0 +1,12 @@
+usr/lib/llvm-@LLVM_VERSION@/bin/bbc
+usr/lib/llvm-@LLVM_VERSION@/bin/f18-parse-demo
+usr/lib/llvm-@LLVM_VERSION@/bin/fir-opt
+usr/lib/llvm-@LLVM_VERSION@/bin/flang-new
+usr/lib/llvm-@LLVM_VERSION@/bin/tco
+
+usr/bin/bbc-@LLVM_VERSION@
+usr/bin/f18-parse-demo-@LLVM_VERSION@
+usr/bin/fir-opt-@LLVM_VERSION@
+usr/bin/flang-new-@LLVM_VERSION@
+usr/bin/tco-@LLVM_VERSION@
+

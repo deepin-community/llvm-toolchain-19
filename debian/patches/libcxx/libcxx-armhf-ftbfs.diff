@@ -1,0 +1,21 @@
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/libcxx/include/__atomic/aliases.h
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/libcxx/include/__atomic/aliases.h
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/libcxx/include/__atomic/aliases.h
+@@ -95,6 +95,7 @@ using __largest_lock_free_type = char;
+ #  endif
+ 
+ #  ifndef _LIBCPP_NO_LOCK_FREE_TYPES
++#ifndef NO_LOCK_FREE
+ using __contention_t_or_largest =
+     __conditional_t<__libcpp_is_always_lock_free<__cxx_contention_t>::__value,
+                     __cxx_contention_t,
+@@ -104,6 +105,8 @@ using atomic_signed_lock_free   = atomic
+ using atomic_unsigned_lock_free = atomic<make_unsigned_t<__contention_t_or_largest>>;
+ #  endif // !_LIBCPP_NO_LOCK_FREE_TYPES
+ #endif   // C++20
++#endif
++#undef NO_LOCK_FREE
+ 
+ _LIBCPP_END_NAMESPACE_STD
+ 

@@ -1,0 +1,15 @@
+Index: llvm-toolchain-snapshot_17~++20230223111257+4f0aa2517d0c/clang-tools-extra/clangd/index/remote/monitor/Monitor.cpp
+===================================================================
+--- llvm-toolchain-snapshot_17~++20230223111257+4f0aa2517d0c.orig/clang-tools-extra/clangd/index/remote/monitor/Monitor.cpp
++++ llvm-toolchain-snapshot_17~++20230223111257+4f0aa2517d0c/clang-tools-extra/clangd/index/remote/monitor/Monitor.cpp
+@@ -68,8 +68,9 @@ int main(int argc, char *argv[]) {
+   if (!JsonStatus.ok()) {
+     clang::clangd::elog("Can not convert response ({0}) to JSON ({1}): {2}\n",
+                         Response.DebugString(),
+-                        static_cast<int>(JsonStatus.code()),
++                        (int)JsonStatus.code(),
+                         JsonStatus.message().as_string());
++
+     return -1;
+   }
+   llvm::outs() << Output;

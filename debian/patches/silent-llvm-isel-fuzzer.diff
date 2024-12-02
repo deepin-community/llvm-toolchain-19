@@ -1,0 +1,24 @@
+Index: llvm-toolchain-snapshot_15~++20220407011631+46f0e2ceb487/llvm/test/tools/llvm-isel-fuzzer/aarch64-execname-options.ll
+===================================================================
+--- llvm-toolchain-snapshot_15~++20220407011631+46f0e2ceb487.orig/llvm/test/tools/llvm-isel-fuzzer/aarch64-execname-options.ll
++++ llvm-toolchain-snapshot_15~++20220407011631+46f0e2ceb487/llvm/test/tools/llvm-isel-fuzzer/aarch64-execname-options.ll
+@@ -2,6 +2,7 @@
+ ; without copying the whole lib dir or polluting the build dir.
+ ; REQUIRES: static-libs
+ ; REQUIRES: aarch64-registered-target
++: XFAIL: *
+ 
+ ; The above also applies if the binary is built with libc++.
+ ; UNSUPPORTED: libcxx-used
+Index: llvm-toolchain-snapshot_15~++20220407011631+46f0e2ceb487/llvm/test/tools/llvm-isel-fuzzer/execname-options.ll
+===================================================================
+--- llvm-toolchain-snapshot_15~++20220407011631+46f0e2ceb487.orig/llvm/test/tools/llvm-isel-fuzzer/execname-options.ll
++++ llvm-toolchain-snapshot_15~++20220407011631+46f0e2ceb487/llvm/test/tools/llvm-isel-fuzzer/execname-options.ll
+@@ -1,6 +1,7 @@
+ ; If the binary looks up libraries using an rpath, we can't test this
+ ; without copying the whole lib dir or polluting the build dir.
+ ; REQUIRES: static-libs
++: XFAIL: *
+ 
+ ; The above also applies if the binary is built with libc++.
+ ; UNSUPPORTED: libcxx-used

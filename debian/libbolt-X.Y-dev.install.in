@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+
+[amd64 arm64] /usr/lib/llvm-@LLVM_VERSION@/lib/libbolt_rt_hugify.a
+[amd64 arm64] /usr/lib/llvm-@LLVM_VERSION@/lib/libbolt_rt_instr.a

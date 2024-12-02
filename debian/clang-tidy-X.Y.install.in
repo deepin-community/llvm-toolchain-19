@@ -1,0 +1,6 @@
+usr/lib/llvm-@LLVM_VERSION@/bin/clang-tidy
+usr/lib/llvm-@LLVM_VERSION@/bin/run-clang-tidy
+usr/lib/llvm-@LLVM_VERSION@/share/clang/clang-tidy-diff.py
+
+usr/bin/clang-tidy-@LLVM_VERSION@
+usr/bin/run-clang-tidy-@LLVM_VERSION@

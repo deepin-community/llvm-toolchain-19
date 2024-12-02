@@ -1,0 +1,17 @@
+---
+ clang/bindings/python/clang/cindex.py |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/bindings/python/clang/cindex.py
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/bindings/python/clang/cindex.py
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/bindings/python/clang/cindex.py
+@@ -4045,7 +4045,7 @@ class Config:
+         elif name == "Windows":
+             file = "libclang.dll"
+         else:
+-            file = "libclang.so"
++            file = "libclang-19.so"
+ 
+         if Config.library_path:
+             file = Config.library_path + "/" + file
