@@ -16,7 +16,7 @@ Build-Depends: debhelper (>= 10.0), cmake, ninja-build,
     libipt-dev [amd64 i386],
     lcov, procps, help2man,
     zlib1g-dev, libzstd-dev,
-    g++-multilib [amd64 i386 mips64 mips64el mipsel powerpc ppc64 s390x sparc sparc64 x32] | hello [amd64 i386 mips64 mips64el mipsel powerpc ppc64 s390x sparc sparc64 x32],
+    g++-multilib [amd64 i386 mips64 mips64el mipsel powerpc ppc64 s390x sparc sparc64 x32],
     libjs-mathjax, python3-myst-parser | python3-recommonmark, python3-pexpect,
     doxygen, time,
     ocaml-base [amd64 arm64 ppc64el riscv64 s390x] | ocaml-nox [amd64 arm64 ppc64el riscv64 s390x],
@@ -24,17 +24,14 @@ Build-Depends: debhelper (>= 10.0), cmake, ninja-build,
     libctypes-ocaml-dev [amd64 arm64 ppc64el riscv64 s390x],
     dh-exec, dh-ocaml [amd64 arm64 ppc64el riscv64 s390x],
     libpfm4-dev [linux-any], python3-setuptools, libz3-dev [!sh4],
-# "| hello" is for older buster/bionic distros without spirv support
-# We need to keep the constraints coherent between the two alternatives, otherwise
-# hello would get installed unexpectedly and prevent e.g. wasi-libc from getting pulled
-    llvm-spirv-19 [amd64 arm64 armhf i386 ppc64 ppc64el riscv64 s390x] <!stage1> | hello [amd64 arm64 armhf i386 ppc64 ppc64el riscv64 s390x] <!stage1>,
-    spirv-tools [linux-any] <!stage1> | hello [linux-any] <!stage1>,
-    wasi-libc | hello,
+    llvm-spirv-19 [amd64 arm64 armhf i386 ppc64 ppc64el riscv64 s390x] <!stage1> ,
+    spirv-tools [linux-any] <!stage1>,
+    wasi-libc,
     libcurl4-openssl-dev <!stage1> | libcurl-dev <!stage1>,
-    libgrpc++-dev [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
-    protobuf-compiler-grpc [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
-    libprotobuf-dev [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
-    protobuf-compiler [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x] <!stage1>,
+    libgrpc++-dev [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x loong64] <!stage1>,
+    protobuf-compiler-grpc [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390xl loong64] <!stage1>,
+    libprotobuf-dev [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x loong64] <!stage1>,
+    protobuf-compiler [amd64 arm64 armel armhf mips64el mipsel ppc64 ppc64el powerpc riscv64 s390x loong64] <!stage1>,
 Build-Conflicts: oprofile
 Standards-Version: 4.7.0
 Homepage: https://www.llvm.org/
