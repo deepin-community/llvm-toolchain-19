@@ -1,0 +1,22 @@
+usr/lib/llvm-@LLVM_VERSION@/bin/count
+usr/lib/llvm-@LLVM_VERSION@/bin/FileCheck
+usr/lib/llvm-@LLVM_VERSION@/bin/not
+usr/lib/llvm-@LLVM_VERSION@/bin/split-file
+usr/lib/llvm-@LLVM_VERSION@/bin/yaml-bench
+usr/lib/llvm-@LLVM_VERSION@/bin/UnicodeNameMappingGenerator
+usr/lib/llvm-@LLVM_VERSION@/share/opt-viewer/opt-viewer.py
+usr/lib/llvm-@LLVM_VERSION@/share/opt-viewer/optrecord.py
+usr/lib/llvm-@LLVM_VERSION@/share/opt-viewer/style.css
+usr/lib/llvm-@LLVM_VERSION@/share/opt-viewer/opt-diff.py
+usr/lib/llvm-@LLVM_VERSION@/share/opt-viewer/optpmap.py
+usr/lib/llvm-@LLVM_VERSION@/share/opt-viewer/opt-stats.py
+
+
+llvm/utils/lit/*             /usr/lib/llvm-@LLVM_VERSION@/build/utils/lit/
+
+usr/bin/count-@LLVM_VERSION@
+usr/bin/FileCheck-@LLVM_VERSION@
+usr/bin/not-@LLVM_VERSION@
+usr/bin/yaml-bench-@LLVM_VERSION@
+usr/bin/split-file-@LLVM_VERSION@
+usr/bin/UnicodeNameMappingGenerator-@LLVM_VERSION@

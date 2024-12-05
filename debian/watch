@@ -1,0 +1,15 @@
+version=4
+opts=repack,compression=xz, \
+  https://github.com/llvm/llvm-project/tags \
+  (?:.*?/)?llvmorg-(19[\d\.\-]+).tar.gz
+
+# FIXME: doesn't work yet:
+# Newest version of integration-test-suite on remote site is 0.0~git20240518.a962677, local version is 19.1.1
+#opts=\
+#component=integration-test-suite,\
+#mode=git,\
+#pgpmode=none,\
+#repack,\
+#compression=xz \
+#  https://github.com/opencollab/llvm-toolchain-integration-test-suite \
+#  HEAD

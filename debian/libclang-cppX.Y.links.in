@@ -1,0 +1,2 @@
+# symlink from the LLVM libdir to the system libdir
+usr/lib/@DEB_HOST_MULTIARCH@/libclang-cpp.so.@LLVM_VERSION@.1 usr/lib/llvm-@LLVM_VERSION@/lib/libclang-cpp.so.@LLVM_VERSION@.1

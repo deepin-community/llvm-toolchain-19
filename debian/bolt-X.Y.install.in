@@ -1,0 +1,11 @@
+usr/bin/llvm-bolt-@LLVM_VERSION@
+usr/bin/llvm-bolt-heatmap-@LLVM_VERSION@
+usr/bin/llvm-boltdiff-@LLVM_VERSION@
+usr/bin/merge-fdata-@LLVM_VERSION@
+usr/bin/perf2bolt-@LLVM_VERSION@
+usr/lib/llvm-@LLVM_VERSION@/bin/llvm-bolt
+usr/lib/llvm-@LLVM_VERSION@/bin/llvm-bolt-heatmap
+usr/lib/llvm-@LLVM_VERSION@/bin/llvm-boltdiff
+usr/lib/llvm-@LLVM_VERSION@/bin/merge-fdata
+usr/lib/llvm-@LLVM_VERSION@/bin/perf2bolt
+

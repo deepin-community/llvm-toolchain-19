@@ -1,0 +1,17 @@
+Index: llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/compiler-rt/lib/builtins/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974.orig/compiler-rt/lib/builtins/CMakeLists.txt
++++ llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/compiler-rt/lib/builtins/CMakeLists.txt
+@@ -796,6 +796,12 @@ else ()
+     append_list_if(COMPILER_RT_ENABLE_CET -fcf-protection=full BUILTIN_CFLAGS)
+   endif()
+ 
++  if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64")
++    append_list_if(COMPILER_RT_HAS_FLOAT16 -msse2 -DCOMPILER_RT_HAS_FLOAT16 BUILTIN_CFLAGS)
++  else ()
++    append_list_if(COMPILER_RT_HAS_FLOAT16 -DCOMPILER_RT_HAS_FLOAT16 BUILTIN_CFLAGS)
++  endif()
++
+   append_list_if(COMPILER_RT_HAS_STD_C11_FLAG -std=c11 BUILTIN_CFLAGS)
+   append_list_if(COMPILER_RT_HAS_WBUILTIN_DECLARATION_MISMATCH_FLAG -Werror=builtin-declaration-mismatch BUILTIN_CFLAGS)
+ 

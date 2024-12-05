@@ -1,0 +1,25 @@
+Index: llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/clang/lib/Driver/ToolChains/WebAssembly.cpp
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974.orig/clang/lib/Driver/ToolChains/WebAssembly.cpp
++++ llvm-toolchain-snapshot_19~++20240711013116+0ff13f72c974/clang/lib/Driver/ToolChains/WebAssembly.cpp
+@@ -20,6 +20,11 @@
+ #include "llvm/Support/Path.h"
+ #include "llvm/Support/VirtualFileSystem.h"
+ 
++#include "llvm/Config/llvm-config.h" // for LLVM_VERSION_MAJOR
++
++#define TOSTR2(X) #X
++#define TOSTR(X) TOSTR2(X)
++
+ using namespace clang::driver;
+ using namespace clang::driver::tools;
+ using namespace clang::driver::toolchains;
+@@ -243,7 +248,7 @@ WebAssembly::WebAssembly(const Driver &D
+ const char *WebAssembly::getDefaultLinker() const {
+   if (getOS() == "wasip2")
+     return "wasm-component-ld";
+-  return "wasm-ld";
++  return "wasm-ld-" TOSTR(LLVM_VERSION_MAJOR);
+ }
+ 
+ bool WebAssembly::IsMathErrnoDefault() const { return false; }

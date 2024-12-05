@@ -1,0 +1,4 @@
+debian/man/clang-format-diff-@LLVM_VERSION@.1
+debian/man/clang-format-@LLVM_VERSION@.1
+debian/man/git-clang-format-@LLVM_VERSION@.1
+

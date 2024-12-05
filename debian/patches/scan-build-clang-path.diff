@@ -1,0 +1,17 @@
+---
+ clang/tools/scan-build/bin/scan-build |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/scan-build/bin/scan-build
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240220124703+f122268c0441.orig/clang/tools/scan-build/bin/scan-build
++++ llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/scan-build/bin/scan-build
+@@ -1494,7 +1494,7 @@ sub FindClang {
+   if (!defined $Options{AnalyzerDiscoveryMethod}) {
+     $Clang = Cwd::realpath("$RealBin/bin/clang") if (-f "$RealBin/bin/clang");
+     if (!defined $Clang || ! -x $Clang) {
+-      $Clang = Cwd::realpath("$RealBin/clang") if (-f "$RealBin/clang");
++      $Clang = Cwd::realpath("/usr/lib/llvm-19/bin/clang");
+       if (!defined $Clang || ! -x $Clang) {
+         # When an Xcode toolchain is present, look for a clang in the sibling bin
+         # of the parent of the bin directory. So if scan-build is at

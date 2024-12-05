@@ -1,0 +1,39 @@
+#!/bin/sh
+
+set -e
+
+LLVM_VERSION=@LLVM_VERSION@
+
+# this is taken from libjsoncpp package
+# Presence of $AUTOPKGTEST_TMP implies that someone will handle cleanup for us, so we
+# can avoid duplicating the effort (signal handling, etc.) here.
+if [ -z "$AUTOPKGTEST_TMP" ]
+then
+	echo "Required envvar AUTOPKGTEST_TMP \"$AUTOPKGTEST_TMP\" is not set" >&2
+	exit 1
+fi
+
+# Copy the integration repo to the temp dir
+cp -Rv integration-test-suite/* "$AUTOPKGTEST_TMP"/
+cd "$AUTOPKGTEST_TMP"
+
+mkdir build
+cd build
+cmake -DLIT=/usr/lib/llvm-$LLVM_VERSION/build/utils/lit/lit.py \
+        -DCLANG_BINARY=/usr/bin/clang-$LLVM_VERSION \
+        -DCLANGXX_BINARY=/usr/bin/clang++-$LLVM_VERSION \
+        -DCLANG_TIDY_BINARY=/usr/bin/clang-tidy-$LLVM_VERSION \
+        -DCLANG_FORMAT_BINARY=/usr/bin/clang-format-$LLVM_VERSION \
+        -DLLD_BINARY=/usr/bin/lld-$LLVM_VERSION \
+        -DLLDB_BINARY=/usr/bin/lldb-$LLVM_VERSION \
+        -DLLVMCONFIG_BINARY=/usr/bin/llvm-config-$LLVM_VERSION \
+        -DOPT_BINARY=/usr/bin/opt-$LLVM_VERSION \
+        -DSCANBUILD=/usr/bin/scan-build-$LLVM_VERSION \
+        -DCLANG_TIDY_BINARY=/usr/bin/clang-tidy-$LLVM_VERSION \
+        -DSCANVIEW=/usr/bin/scan-view-$LLVM_VERSION \
+        -DLLVMNM=/usr/bin/llvm-nm-$LLVM_VERSION \
+        -DLLVMPROFDATA=/usr/bin/llvm-profdata-$LLVM_VERSION \
+        -DENABLE_COMPILER_RT=OFF \
+        -DENABLE_LIBCXX=ON \
+        -DLLVM_CMAKE_PREFIX_PATH=/usr/lib/llvm-$LLVM_VERSION/lib/cmake/ ../
+make check

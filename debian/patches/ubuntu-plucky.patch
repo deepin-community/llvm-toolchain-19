@@ -1,0 +1,43 @@
+From 32b55f375feaf6bcc2c870964a0bf087cf3c22bf Mon Sep 17 00:00:00 2001
+From: Sylvestre Ledru <sylvestre@debian.org>
+Date: Thu, 17 Oct 2024 21:32:20 +0200
+Subject: [PATCH] Add support of the next Ubuntu (Ubuntu 25.04 - Plucky Puffin)
+
+---
+ clang/include/clang/Driver/Distro.h | 3 ++-
+ clang/lib/Driver/Distro.cpp         | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+Index: llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825/clang/include/clang/Driver/Distro.h
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825.orig/clang/include/clang/Driver/Distro.h
++++ llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825/clang/include/clang/Driver/Distro.h
+@@ -80,6 +80,7 @@ public:
+     UbuntuMantic,
+     UbuntuNoble,
+     UbuntuOracular,
++    UbuntuPlucky,
+     UnknownDistro
+   };
+ 
+@@ -131,7 +132,7 @@ public:
+   }
+ 
+   bool IsUbuntu() const {
+-    return DistroVal >= UbuntuHardy && DistroVal <= UbuntuOracular;
++    return DistroVal >= UbuntuHardy && DistroVal <= UbuntuPlucky;
+   }
+ 
+   bool IsAlpineLinux() const { return DistroVal == AlpineLinux; }
+Index: llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825/clang/lib/Driver/Distro.cpp
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825.orig/clang/lib/Driver/Distro.cpp
++++ llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825/clang/lib/Driver/Distro.cpp
+@@ -96,6 +96,7 @@ static Distro::DistroType DetectLsbRelea
+                     .Case("mantic", Distro::UbuntuMantic)
+                     .Case("noble", Distro::UbuntuNoble)
+                     .Case("oracular", Distro::UbuntuOracular)
++                    .Case("plucky", Distro::UbuntuPlucky)
+                     .Default(Distro::UnknownDistro);
+   return Version;
+ }

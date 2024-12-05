@@ -1,0 +1,50 @@
+From: Nicholas D Steeves <nsteeves@gmail.com>
+Date: Sat, 10 Feb 2018 21:00:55 -0500
+Subject: Set html_static_path = ['_static'] everywhere.
+
+---
+ clang-tools-extra/docs/conf.py | 2 +-
+ clang/docs/analyzer/conf.py    | 2 +-
+ clang/docs/conf.py             | 2 +-
+ polly/docs/conf.py             | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/docs/analyzer/conf.py
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/docs/analyzer/conf.py
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/docs/analyzer/conf.py
+@@ -118,7 +118,7 @@ html_theme = "haiku"
+ # Add any paths that contain custom static files (such as style sheets) here,
+ # relative to this directory. They are copied after the builtin static files,
+ # so a file named "default.css" will overwrite the builtin "default.css".
+-html_static_path = []
++html_static_path = ['_static']
+ 
+ # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+ # using the given strftime format.
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/docs/conf.py
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang/docs/conf.py
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang/docs/conf.py
+@@ -127,7 +127,7 @@ html_theme = "haiku"
+ # Add any paths that contain custom static files (such as style sheets) here,
+ # relative to this directory. They are copied after the builtin static files,
+ # so a file named "default.css" will overwrite the builtin "default.css".
+-html_static_path = []
++html_static_path = ['_static']
+ 
+ # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+ # using the given strftime format.
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/polly/docs/conf.py
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/polly/docs/conf.py
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/polly/docs/conf.py
+@@ -124,7 +124,7 @@ except ImportError:
+ # Add any paths that contain custom static files (such as style sheets) here,
+ # relative to this directory. They are copied after the builtin static files,
+ # so a file named "default.css" will overwrite the builtin "default.css".
+-html_static_path = []
++html_static_path = ['_static']
+ 
+ # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+ # using the given strftime format.

@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_11~++20200326111000+4673699a470/llvm/test/ThinLTO/X86/autoupgrade.ll
+===================================================================
+--- llvm-toolchain-snapshot_11~++20200326111000+4673699a470.orig/llvm/test/ThinLTO/X86/autoupgrade.ll
++++ llvm-toolchain-snapshot_11~++20200326111000+4673699a470/llvm/test/ThinLTO/X86/autoupgrade.ll
+@@ -3,6 +3,8 @@
+ ; RUN: opt -module-summary %s -o %t.bc
+ ; RUN: llvm-lto -thinlto-action=thinlink -o %t3.bc %t.bc %p/Inputs/autoupgrade.bc
+ 
++; XFAIL: *
++
+ ; We can't use llvm-dis here, because it would do the autoupgrade itself.
+ 
+ ; RUN: llvm-link  -summary-index=%t3.bc \

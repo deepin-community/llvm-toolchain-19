@@ -1,0 +1,18 @@
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
+@@ -300,10 +300,12 @@ async def main() -> None:
+         help="Allow alpha checkers from clang-analyzer.",
+     )
+     parser.add_argument(
+-        "-clang-tidy-binary", metavar="PATH", help="Path to clang-tidy binary."
++        "-clang-tidy-binary", metavar="PATH", help="Path to clang-tidy binary.",
++        default='clang-tidy-19'
+     )
+     parser.add_argument(
+         "-clang-apply-replacements-binary",
++        default='clang-apply-replacements-19',
+         metavar="PATH",
+         help="Path to clang-apply-replacements binary.",
+     )

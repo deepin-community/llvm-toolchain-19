@@ -1,0 +1,45 @@
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/llvm/lib/Target/Mips/MipsSubtarget.cpp
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/llvm/lib/Target/Mips/MipsSubtarget.cpp
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/llvm/lib/Target/Mips/MipsSubtarget.cpp
+@@ -81,7 +81,7 @@ MipsSubtarget::MipsSubtarget(const Tripl
+       InMips16HardFloat(Mips16HardFloat), InMicroMipsMode(false), HasDSP(false),
+       HasDSPR2(false), HasDSPR3(false), AllowMixed16_32(Mixed16_32 || Mips_Os16),
+       Os16(Mips_Os16), HasMSA(false), UseTCCInDIV(false), HasSym32(false),
+-      HasEVA(false), DisableMadd4(false), HasMT(false), HasCRC(false),
++      HasEVA(false), DisableMadd4(true), HasMT(false), HasCRC(false),
+       HasVirt(false), HasGINV(false), UseIndirectJumpsHazard(false), StrictAlign(false),
+       StackAlignOverride(StackAlignOverride), TM(TM), TargetTriple(TT),
+       TSInfo(), InstrInfo(MipsInstrInfo::create(
+@@ -92,6 +92,9 @@ MipsSubtarget::MipsSubtarget(const Tripl
+   if (MipsArchVersion == MipsDefault)
+     MipsArchVersion = Mips32;
+ 
++  if (hasMips32r6() || hasMips64r6())
++    DisableMadd4 = false;
++
+   // MIPS-I has not been tested.
+   if (MipsArchVersion == Mips1 && !MIPS1WarningPrinted) {
+     errs() << "warning: MIPS-I support is experimental\n";
+@@ -241,6 +244,7 @@ MipsSubtarget &
+ MipsSubtarget::initializeSubtargetDependencies(StringRef CPU, StringRef FS,
+                                                const TargetMachine &TM) {
+   StringRef CPUName = MIPS_MC::selectMipsCPU(TM.getTargetTriple(), CPU);
++  SubtargetFeatures Features(FS);
+ 
+   // Parse features string.
+   ParseSubtargetFeatures(CPUName, /*TuneCPU*/ CPUName, FS);
+@@ -263,6 +267,13 @@ MipsSubtarget::initializeSubtargetDepend
+     report_fatal_error("64-bit code requested on a subtarget that doesn't "
+                        "support it!");
+ 
++  for (const std::string &Feature : Features.getFeatures()) {
++    if (Feature == "+nomadd4")
++      DisableMadd4 = true;
++    else if (Feature == "-nomadd4")
++      DisableMadd4 = false;
++  }
++
+   return *this;
+ }
+ 

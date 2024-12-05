@@ -1,0 +1,26 @@
+Index: llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825/clang/lib/Driver/ToolChains/Linux.cpp
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825.orig/clang/lib/Driver/ToolChains/Linux.cpp
++++ llvm-toolchain-19_19.1.2~++20241028100023+d8752671e825/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -298,6 +298,21 @@ Linux::Linux(const Driver &D, const llvm
+   ExtraOpts.push_back("--build-id");
+ #endif
+ 
++  if (Distro.IsDebian() && Distro >= Distro::DebianTrixie
++      || Distro.IsUbuntu() && Distro >= Distro::UbuntuNoble)
++  {
++    const char *pkg_metadata = getenv ("ELF_PACKAGE_METADATA");
++    const char *no_pkg_metadata = getenv ("NO_PKG_METADATA");
++
++    if (no_pkg_metadata) {
++      // don't issue --package-metadata option
++    } else if (!pkg_metadata) {
++      // no environment set for package metadata
++    } else {
++      ExtraOpts.push_back(std::string("--package-metadata=") + pkg_metadata);
++    }
++  }
++
+   // The selection of paths to try here is designed to match the patterns which
+   // the GCC driver itself uses, as this is part of the GCC-compatible driver.
+   // This was determined by running GCC in a fake filesystem, creating all

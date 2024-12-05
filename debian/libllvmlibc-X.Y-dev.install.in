@@ -1,0 +1,5 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/libllvmlibc.a
+usr/lib/llvm-@LLVM_VERSION@/include/llvmlibc_rpc_opcodes.h
+usr/lib/llvm-@LLVM_VERSION@/include/llvmlibc_rpc_server.h
+usr/lib/llvm-@LLVM_VERSION@/lib/libLibcTableGenUtil.a
+usr/lib/llvm-@LLVM_VERSION@/lib/libllvmlibc_rpc_server.a

@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+
+[!powerpc] usr/lib/llvm-@LLVM_VERSION@/lib/libPolly*.a

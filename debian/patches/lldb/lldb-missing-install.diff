@@ -1,0 +1,23 @@
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/lldb/tools/argdumper/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/lldb/tools/argdumper/CMakeLists.txt
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/lldb/tools/argdumper/CMakeLists.txt
+@@ -6,3 +6,6 @@ add_lldb_tool(lldb-argdumper ADD_TO_FRAM
+ )
+ 
+ add_dependencies(liblldb lldb-argdumper)
++
++install(TARGETS lldb-argdumper
++  RUNTIME DESTINATION bin)
+Index: llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/lldb/tools/lldb-server/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e.orig/lldb/tools/lldb-server/CMakeLists.txt
++++ llvm-toolchain-19_19.1.2~++20241011093632+6c1fd539e43e/lldb/tools/lldb-server/CMakeLists.txt
+@@ -67,3 +67,7 @@ add_dependencies(lldb-server
+ )
+ target_include_directories(lldb-server PRIVATE "${LLDB_SOURCE_DIR}/source")
+ target_link_libraries(lldb-server PRIVATE ${LLDB_SYSTEM_LIBS})
++
++install(TARGETS lldb-server
++  RUNTIME DESTINATION bin)
++

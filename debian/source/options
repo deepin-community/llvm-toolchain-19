@@ -1,0 +1,1 @@
+extend-diff-ignore = "(^|/)(clang|clang-tools-extra|compiler-rt|CONTRIBUTING.md|debuginfo-tests|flang|integration-test-suite|libc|libclc|libcxx|libcxxabi|libunwind|lld|lldb|llvm|mlir|openmp|parallel-libs|polly|pstl|README.md|runtimes|utils|)"

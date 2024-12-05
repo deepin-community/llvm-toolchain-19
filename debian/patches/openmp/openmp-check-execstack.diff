@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_19~++20240622104700+f5b93ae5884d/openmp/runtime/tools/check-execstack.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240622104700+f5b93ae5884d.orig/openmp/runtime/tools/check-execstack.py
++++ llvm-toolchain-snapshot_19~++20240622104700+f5b93ae5884d/openmp/runtime/tools/check-execstack.py
+@@ -30,7 +30,7 @@ def is_stack_executable_readelf(library)
+         error("{}: Not stack segment found".format(library))
+     if len(stack_lines) > 1:
+         error("{}: More than one stack segment found".format(library))
+-    h = r"0x[0-9a-fA-F]+"
++    h = r"0(?:x[0-9a-f]+)"
+     m = re.search(
+         r"((GNU_)?STACK)\s+({0})\s+({0})\s+({0})\s+({0})\s+({0})"
+         " ([R ][W ][E ])".format(h),

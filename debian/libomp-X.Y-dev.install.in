@@ -1,0 +1,22 @@
+#!/usr/bin/dh-exec
+
+/usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION@/include/omp*.h
+/usr/lib/llvm-@LLVM_VERSION@/lib/libgomp.so
+/usr/lib/llvm-@LLVM_VERSION@/lib/libiomp5.so
+/usr/lib/llvm-@LLVM_VERSION@/lib/libomp*.so
+[!armhf !mips64el] /usr/lib/llvm-@LLVM_VERSION@/lib/libarcher_static.a
+[!armhf !mips64el] /usr/lib/llvm-@LLVM_VERSION@/lib/libarcher.so
+
+[amd64 hurd-amd64 ppc64el arm64 ppc64] /usr/lib/llvm-@LLVM_VERSION@/lib/libomptarget.devicertl.a
+
+[amd64 hurd-amd64 ppc64el arm64 ppc64] /usr/lib/llvm-@LLVM_VERSION@/lib/libomptarget-*.bc
+
+usr/lib/llvm-@LLVM_VERSION@/lib/cmake/openmp/*.cmake
+
+[amd64 hurd-amd64 arm64 ppc64el ppc64] usr/lib/llvm-@LLVM_VERSION@/bin/llvm-omp-device-info
+[amd64 hurd-amd64 arm64 ppc64el ppc64] usr/lib/llvm-@LLVM_VERSION@/bin/llvm-omp-kernel-replay
+
+[amd64 hurd-amd64 arm64 ppc64el ppc64] usr/bin/llvm-omp-device-info-@LLVM_VERSION@
+[amd64 hurd-amd64 arm64 ppc64el ppc64] usr/bin/llvm-omp-kernel-replay-@LLVM_VERSION@
+
+[!armhf !hurd-amd64] usr/lib/llvm-@LLVM_VERSION@/share/gdb/python/ompd/

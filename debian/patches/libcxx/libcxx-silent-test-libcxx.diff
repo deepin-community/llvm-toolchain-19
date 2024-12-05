@@ -1,0 +1,51 @@
+Index: llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxx/test/std/numerics/rand/rand.util/rand.util.canonical/generate_canonical.pass.cpp
+===================================================================
+--- llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396.orig/libcxx/test/std/numerics/rand/rand.util/rand.util.canonical/generate_canonical.pass.cpp
++++ llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxx/test/std/numerics/rand/rand.util/rand.util.canonical/generate_canonical.pass.cpp
+@@ -11,6 +11,8 @@
+ // template<class RealType, size_t bits, class URNG>
+ //     RealType generate_canonical(URNG& g);
+ 
++// XFAIL: *
++
+ #include <random>
+ 
+ #include <cassert>
+Index: llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxx/test/std/re/re.traits/isctype.pass.cpp
+===================================================================
+--- llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396.orig/libcxx/test/std/re/re.traits/isctype.pass.cpp
++++ llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxx/test/std/re/re.traits/isctype.pass.cpp
+@@ -12,6 +12,7 @@
+ 
+ // bool isctype(charT c, char_class_type f) const;
+ 
++// XFAIL: *
+ 
+ #include <regex>
+ #include <cassert>
+Index: llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxxabi/test/catch_multi_level_pointer.pass.cpp
+===================================================================
+--- llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396.orig/libcxxabi/test/catch_multi_level_pointer.pass.cpp
++++ llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxxabi/test/catch_multi_level_pointer.pass.cpp
+@@ -15,6 +15,8 @@
+ // memory and this test requires almost 5 MB
+ // UNSUPPORTED: LIBCXX-PICOLIBC-FIXME
+ 
++// XFAIL: *
++
+ #include <cassert>
+ #include <cstdio>
+ #include <cstdlib>
+Index: llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxx/test/std/utilities/allocator.adaptor/allocator.adaptor.members/construct.pass.cpp
+===================================================================
+--- llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396.orig/libcxx/test/std/utilities/allocator.adaptor/allocator.adaptor.members/construct.pass.cpp
++++ llvm-toolchain-snapshot_18~++20231218053220+7b1e4239b396/libcxx/test/std/utilities/allocator.adaptor/allocator.adaptor.members/construct.pass.cpp
+@@ -15,6 +15,8 @@
+ 
+ // template <class T, class... Args> void construct(T* p, Args&&... args);
+ 
++// XFAIL: *
++
+ #include <scoped_allocator>
+ #include <cassert>
+ #include <string>

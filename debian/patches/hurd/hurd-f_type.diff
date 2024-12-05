@@ -1,0 +1,27 @@
+https://github.com/llvm/llvm-project/pull/71851
+
+commit 620b8d994b8abdcf31271d9f4db7e7422fc9bd65
+Author: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Date:   Mon Sep 9 15:53:33 2024 +0200
+
+    [hurd] Fix accessing f_type field of statvfs (#71851)
+    
+    f4719c4d2cda ("Add support for GNU Hurd in Path.inc and other places")
+    made llvm use an internal __f_type name for the f_type field (which it
+    is not supposed to since accessing double-underscore names is explicitly
+    not supported by standards). In glibc 2.39 this field was renamed to
+    f_type so application can now access the field as the standard says.
+
+diff --git a/llvm/lib/Support/Unix/Path.inc b/llvm/lib/Support/Unix/Path.inc
+index 8098392a7fd9..44097bad7b46 100644
+--- a/llvm/lib/Support/Unix/Path.inc
++++ b/llvm/lib/Support/Unix/Path.inc
+@@ -487,7 +487,7 @@ static bool is_local_impl(struct STATVFS &Vfs) {
+ #ifndef CIFS_MAGIC_NUMBER
+ #define CIFS_MAGIC_NUMBER 0xFF534D42
+ #endif
+-#ifdef __GNU__
++#if defined(__GNU__) && ((__GLIBC__ < 2) || ((__GLIBC__ == 2) && (__GLIBC_MINOR__ < 39)))
+   switch ((uint32_t)Vfs.__f_type) {
+ #else
+   switch ((uint32_t)Vfs.f_type) {

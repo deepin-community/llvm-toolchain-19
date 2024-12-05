@@ -1,0 +1,31 @@
+---
+ clang/tools/libclang/CMakeLists.txt |    2 +-
+ tools/llvm-shlib/CMakeLists.txt     |    1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+Index: llvm-toolchain-snapshot_19~++20240319094628+703920d4138d/clang/tools/libclang/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240319094628+703920d4138d.orig/clang/tools/libclang/CMakeLists.txt
++++ llvm-toolchain-snapshot_19~++20240319094628+703920d4138d/clang/tools/libclang/CMakeLists.txt
+@@ -135,7 +135,7 @@ if (UNIX AND ${CMAKE_SYSTEM_NAME} MATCHE
+     remove_definitions("-D_XOPEN_SOURCE=700")
+ endif()
+ 
+-add_clang_library(libclang ${ENABLE_SHARED} ${ENABLE_STATIC} INSTALL_WITH_TOOLCHAIN
++add_clang_library(libclang ${ENABLE_SHARED} ${ENABLE_STATIC} INSTALL_WITH_TOOLCHAIN SONAME
+   OUTPUT_NAME ${output_name}
+   ${SOURCES}
+ 
+Index: llvm-toolchain-snapshot_19~++20240319094628+703920d4138d/llvm/tools/llvm-shlib/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240319094628+703920d4138d.orig/llvm/tools/llvm-shlib/CMakeLists.txt
++++ llvm-toolchain-snapshot_19~++20240319094628+703920d4138d/llvm/tools/llvm-shlib/CMakeLists.txt
+@@ -41,6 +41,8 @@ if(LLVM_BUILD_LLVM_DYLIB)
+     llvm_install_library_symlink(LLVM-${LLVM_VERSION_MAJOR}${LLVM_VERSION_SUFFIX} $<TARGET_FILE_NAME:LLVM> SHARED FULL_DEST COMPONENT LLVM)
+   endif()
+ 
++  set_property(TARGET LLVM PROPERTY VERSION "1") # Append .1 to SONAME
++
+   list(REMOVE_DUPLICATES LIB_NAMES)
+   if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
+     set(LIB_NAMES -Wl,-all_load ${LIB_NAMES})

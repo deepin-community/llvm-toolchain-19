@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+if test "$1" = "configure"; then
+	if command -v update-binfmts >/dev/null; then
+        update-binfmts --import llvm-@LLVM_VERSION@-runtime.binfmt || true
+    fi
+fi
+
+#DEBHELPER#

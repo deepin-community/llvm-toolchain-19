@@ -1,0 +1,59 @@
+import os
+import lit
+
+config.name = 'LLVM regression suite'
+config.test_format = lit.formats.ShTest(True)
+config.suffixes = ['.ll', '.c', '.cpp', '.test', '.txt', '.s', '.mir', '.mlir']
+config.test_source_root = os.path.join("@CMAKE_CURRENT_SOURCE_DIR@", "tests")
+config.excludes = ['Inputs']
+
+config.available_features.add("@CMAKE_HOST_SYSTEM_PROCESSOR@")
+
+def enable_feature(name, option):
+    if option.lower() in ('on', 1):
+        config.available_features.add(name)
+
+def enable_program(name, binary):
+    if os.path.exists(binary):
+        config.available_features.add(name)
+        config.substitutions.append(('%'+name, binary))
+
+def enable_library(name, library):
+    if os.path.exists(library):
+        config.available_features.add(name)
+
+# The order matters, e.g. substitution for clang-format-diff
+# must appear before clang-format, because the latter is a prefix of the former.
+
+enable_program('cc', "@CMAKE_C_COMPILER@")
+enable_program('cxx', "@CMAKE_CXX_COMPILER@")
+enable_program('clang-tidy', "@CLANG_TIDY_BINARY@")
+enable_program('clang-format-diff', "@CLANG_FORMAT_DIFF_BINARY@")
+enable_program('clang-format', "@CLANG_FORMAT_BINARY@")
+enable_program('clangd', "@CLANGD_BINARY@")
+enable_program('clangxx', "@CLANGXX_BINARY@")
+enable_program('clang', "@CLANG_BINARY@")
+enable_program('llvm-nm', "@LLVMNM@")
+enable_program('llc', "@LLC@")
+enable_program('lli', "@LLI@")
+enable_program('opt', "@OPT@")
+enable_program('llvm-profdata', "@LLVMPROFDATA@")
+enable_program('llvm-config', "@LLVMCONFIG_BINARY@")
+enable_program('llvm-objdump', "@LLVMOBJDUMP_BINARY@")
+enable_program('lldb', "@LLDB_BINARY@")
+enable_program('lld', "@LLD_BINARY@")
+enable_program('scan-build-py', "@SCANBUILDPY@")
+enable_program('scan-build', "@SCANBUILD@")
+enable_program('scan-view', "@SCANVIEW@")
+enable_program('opt', "@OPT_BINARY@")
+enable_program('mlir-translate', "@MLIRTRANSLATE@")
+
+enable_library('libomp', "@LIBOMP@")
+
+config.substitutions.append(('%cmake', '@CMAKE_COMMAND@'))
+
+enable_feature("compiler-rt", "@ENABLE_COMPILER_RT@")
+enable_feature("libc++", "@ENABLE_LIBCXX@")
+enable_feature("static-libc++", "@ENABLE_STATIC_LIBCXX@")
+enable_feature("libunwind", "@ENABLE_LIBUNWIND@")
+enable_feature("support_hwasan", "@ENABLE_HWASAN@")

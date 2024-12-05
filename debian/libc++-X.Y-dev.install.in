@@ -1,0 +1,11 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/libc++.so
+usr/lib/llvm-@LLVM_VERSION@/lib/libc++.a
+usr/lib/llvm-@LLVM_VERSION@/include/c++/
+usr/lib/llvm-@LLVM_VERSION@/include/c++/v1/
+usr/lib/llvm-@LLVM_VERSION@/lib/libc++experimental.a
+
+# C++ modules
+usr/lib/llvm-@LLVM_VERSION@/lib/libc++.modules.json
+usr/lib/llvm-@LLVM_VERSION@/share/libc++/v1/std.compat/*.inc
+usr/lib/llvm-@LLVM_VERSION@/share/libc++/v1/*.cppm
+usr/lib/llvm-@LLVM_VERSION@/share/libc++/v1/std/*.inc

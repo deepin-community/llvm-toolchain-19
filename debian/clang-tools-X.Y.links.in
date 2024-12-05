@@ -1,0 +1,3 @@
+usr/share/clang/scan-build-@LLVM_VERSION@/bin/scan-build  usr/bin/scan-build-@LLVM_VERSION@
+usr/share/clang/scan-view-@LLVM_VERSION@/bin/scan-view    usr/bin/scan-view-@LLVM_VERSION@
+usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION@/bin/hwasan_symbolize usr/bin/hwasan_symbolize-@LLVM_VERSION@

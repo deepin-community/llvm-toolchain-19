@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_17~++20230523093327+96a003b9bf79/clang/tools/scan-build-py/lib/libscanbuild/arguments.py
+===================================================================
+--- llvm-toolchain-snapshot_17~++20230523093327+96a003b9bf79.orig/clang/tools/scan-build-py/lib/libscanbuild/arguments.py
++++ llvm-toolchain-snapshot_17~++20230523093327+96a003b9bf79/clang/tools/scan-build-py/lib/libscanbuild/arguments.py
+@@ -293,7 +293,7 @@ def create_analyze_parser(from_build_com
+         "--use-analyzer",
+         metavar="<path>",
+         dest="clang",
+-        default="clang",
++        default="clang-19",
+         help="""'%(prog)s' uses the 'clang' executable relative to itself for
+         static analysis. One can override this behavior with this option by
+         using the 'clang' packaged with Xcode (on OS X) or from the PATH.""",

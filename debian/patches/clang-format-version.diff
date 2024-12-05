@@ -1,0 +1,45 @@
+---
+ clang/tools/clang-format/clang-format-diff.py |    2 +-
+ clang/tools/clang-format/clang-format.el      |    2 +-
+ clang/tools/clang-format/clang-format.py      |    2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+Index: llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/clang-format/clang-format-diff.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240220124703+f122268c0441.orig/clang/tools/clang-format/clang-format-diff.py
++++ llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/clang-format/clang-format-diff.py
+@@ -93,7 +93,7 @@ def main():
+     )
+     parser.add_argument(
+         "-binary",
+-        default="clang-format",
++        default="clang-format-19",
+         help="location of binary to use for clang-format",
+     )
+     args = parser.parse_args()
+Index: llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/clang-format/clang-format.el
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240220124703+f122268c0441.orig/clang/tools/clang-format/clang-format.el
++++ llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/clang-format/clang-format.el
+@@ -38,7 +38,7 @@
+   :group 'tools)
+ 
+ (defcustom clang-format-executable
+-  (or (executable-find "clang-format")
++  (or (executable-find "clang-format-19")
+       "clang-format")
+   "Location of the clang-format executable.
+ 
+Index: llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/clang-format/clang-format.py
+===================================================================
+--- llvm-toolchain-snapshot_19~++20240220124703+f122268c0441.orig/clang/tools/clang-format/clang-format.py
++++ llvm-toolchain-snapshot_19~++20240220124703+f122268c0441/clang/tools/clang-format/clang-format.py
+@@ -49,7 +49,7 @@ import vim
+ 
+ # set g:clang_format_path to the path to clang-format if it is not on the path
+ # Change this to the full path if clang-format is not on the path.
+-binary = "clang-format"
++binary = "clang-format-19"
+ if vim.eval('exists("g:clang_format_path")') == "1":
+     binary = vim.eval("g:clang_format_path")
+ 

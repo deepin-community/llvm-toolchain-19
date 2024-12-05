@@ -1,0 +1,3 @@
+# provide symlinks in the LLVM subdir
+
+# no symlinks in the LLVM subdir, the package is M-A: same
