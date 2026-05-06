@@ -1,3 +1,12 @@
+llvm-toolchain-19 (1:19.1.4-2) unstable; urgency=medium
+
+  * Fix CVE-2024-7883: Arm CMSE security vulnerability.
+    - When using Arm Cortex-M Security Extensions (CMSE), Secure stack
+      contents can be leaked to Non-secure state via floating-point registers.
+    - This fix inserts a vmov s0, s0 instruction before the VLSTM instruction.
+
+ -- deepin-ci-robot <packages@deepin.org>  Tue, 06 May 2026 07:40:00 +0800
+
 llvm-toolchain-19 (1:19.1.4-1) unstable; urgency=medium
 
   [ Sylvestre Ledru ]
