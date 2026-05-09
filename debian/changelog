@@ -1,3 +1,16 @@
+llvm-toolchain-19 (1:19.1.4-1deepin1) unstable; urgency=medium
+
+  * Fix CVE-2024-7883: Arm Cortex-M Security Extensions (CMSE) vulnerability.
+    When using Arm CMSE, Secure stack contents could be leaked to Non-secure
+    state via floating-point registers when a Secure to Non-secure function
+    call is made that returns a floating-point value and when this is the
+    first use of floating-point since entering Secure state.
+    This patch adds a "vmov s0, s0" instruction before VLSTM to ensure
+    CONTROL_S.SFPA is set consistently.
+    Patch from upstream PR #114433.
+
+ -- deepin-ci-robot <packages@deepin.org>  Fri, 09 May 2026 14:20:00 +0800
+
 llvm-toolchain-19 (1:19.1.4-1) unstable; urgency=medium
 
   [ Sylvestre Ledru ]
