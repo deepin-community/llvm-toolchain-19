@@ -852,7 +852,7 @@ Multi-Arch: same
 Depends:
  ${misc:Depends},
  libunwind-@LLVM_VERSION@ (= ${binary:Version})
-Provides: libunwind-dev, libunwind-x.y-dev
+Provides: libunwind-x.y-dev
 Conflicts: libunwind-dev, libunwind-x.y-dev
 Replaces: libunwind-dev, libunwind-x.y-dev
 Description: production-quality unwinder
