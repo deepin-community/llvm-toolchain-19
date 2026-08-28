@@ -1,3 +1,19 @@
+llvm-toolchain-19 (1:19.1.4-1deepin2) unstable; urgency=medium
+
+  * Remove incorrect Provides: libunwind-dev from libunwind-19-dev. The
+    package libunwind-19-dev is LLVM's libunwind (libc++ unwinder), not
+    compatible with glibc and not shipping libunwind.pc pkg-config
+    metadata. Declaring Provides: libunwind-dev made the package manager
+    satisfy the libunwind-dev build-dependency (e.g. from
+    libgstreamer1.0-dev) with libunwind-19-dev instead of the real
+    libunwind-dev (1.7.x), breaking pkg-config lookups: Package
+    'libunwind' not found. This matches upstream Debian llvm-toolchain
+    branch 19 which only Provides: libunwind-x.y-dev.
+    Conflicts/Replaces: libunwind-dev are kept so it still cannot
+    coexist with the real libunwind-dev.
+
+ -- lichenggang <lichenggang@uniontech.com>  Fri, 28 Aug 2026 13:55:06 +0800
+
 llvm-toolchain-19 (1:19.1.4-1deepin1) unstable; urgency=medium
 
   * Fix CVE-2024-7883: Arm Cortex-M Security Extensions (CMSE) vulnerability.
